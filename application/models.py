@@ -8,6 +8,41 @@ App Engine datastore models
 
 from google.appengine.ext import ndb
 
+class User(ndb.Model):
+    """Models an individual user entry.
+    
+    Attributes:
+        username        - reddit username
+        created_reddit  - Date when user joined reddit
+        created_daily3  - Date when user joined daily3.me
+        access_token    - reddit OAuth access token
+        refresh_token   - reddit OAuth refresh token
+    """
+    
+    username = ndb.StringProperty()
+    created_reddit = ndb.DateProperty()
+    created_daily3 = ndb.DateProperty(auto_now_add=True)
+    access_token = ndb.StringProperty(indexed=False)
+    refresh_token = ndb.StringProperty(indexed=False)
+    
+
+class Post(ndb.Model):
+    """Models an individual Daily3 post entry.
+    
+    Attributes:
+        posted   - DateTime when entry was posted
+        user     - User who created this post
+        item1    - Daily3 item 1
+        item2    - Daily3 item 2
+        item3    - Daily3 item 3
+    """
+    
+    posted = ndb.DateTimeProperty(auto_now_add=True)
+    user = ndb.KeyProperty(kind="User")
+    item1 = ndb.TextProperty()
+    item2 = ndb.TextProperty()
+    item3 = ndb.TextProperty()
+
 
 class ExampleModel(ndb.Model):
     """Example Model"""
