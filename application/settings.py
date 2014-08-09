@@ -10,7 +10,7 @@ Important: Place your keys in the secret_keys.py module,
 
 import os
 
-from secret_keys import CSRF_SECRET_KEY, SESSION_KEY
+from secret_keys import *
 
 class Config(object):
     # Set secret keys for CSRF protection
@@ -25,6 +25,11 @@ class Development(Config):
     DEBUG_TB_PROFILER_ENABLED = True
     DEBUG_TB_INTERCEPT_REDIRECTS = False
     CSRF_ENABLED = True
+    
+    CLIENT_ID = DEV_CLIENT_ID
+    CLIENT_SECRET = DEV_CLIENT_SECRET
+    REDIRECT_URI = DEV_REDIRECT_URI
+    MYDAILY3_SUB = 'mydaily3_sandbox'
 
 class Testing(Config):
     TESTING = True
@@ -34,3 +39,8 @@ class Testing(Config):
 class Production(Config):
     DEBUG = False
     CSRF_ENABLED = True
+    
+    CLIENT_ID = PROD_CLIENT_ID
+    CLIENT_SECRET = PROD_CLIENT_SECRET
+    REDIRECT_URI = PROD_REDIRECT_URI
+    MYDAILY3_SUB = 'mydaily3'
