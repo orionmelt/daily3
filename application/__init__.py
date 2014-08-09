@@ -9,6 +9,11 @@ from werkzeug.debug import DebuggedApplication
 
 app = Flask('application')
 
+# GAE doesn't seem to support OS environment variables, so we look at
+# SERVER_SOFTWARE to set dev/prod app config.
+if 'Development' in os.getenv('SERVER_SOFTWARE'):
+    os.environ['FLASK_CONF'] = 'DEV'
+
 if os.getenv('FLASK_CONF') == 'DEV':
 	#development settings n
     app.config.from_object('application.settings.Development')
