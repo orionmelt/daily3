@@ -40,7 +40,15 @@ from praw.settings import CONFIG
 from requests.compat import urljoin
 from requests import Request
 from six.moves import html_entities, http_cookiejar
-from update_checker import update_check
+# update_checker does not work with GAE, so let's disable update checking
+#from update_checker import update_check
+uc_disabled = True
+""""try:
+    from update_checker import update_check
+    uc_disabled = False
+except ImportError:
+    uc_disabled = True
+"""
 from warnings import warn_explicit
 
 
@@ -312,7 +320,7 @@ class BaseReddit(object):
 
         # Check for updates if permitted and this is the first Reddit instance
         if not disable_update_check and not self.update_checked \
-                and self.config.check_for_updates:
+                and self.config.check_for_updates and not uc_disabled:
             update_check(__name__, __version__)
             self.update_checked = True
 
