@@ -93,6 +93,7 @@
 	
 	#loading {
 		padding:0 0.5em;
+		margin-right:1em;
 	}
 	
 	
@@ -130,6 +131,7 @@
 	#post_daily3 p
 	{
 		display:inline-block;
+		vertical-align:top;
 	}
 	
 	.blurb

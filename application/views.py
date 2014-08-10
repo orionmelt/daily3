@@ -24,7 +24,7 @@ from google.appengine.api import memcache
 from datetime import datetime, date
 from uuid import uuid4
 import praw
-import logging
+import logging, sys
 
 # Flask-Cache (configured to use App Engine Memcache API)
 cache = Cache(app)
@@ -36,6 +36,81 @@ def get_reddit():
         reddit.set_oauth_app_info(app.config['CLIENT_ID'], app.config['CLIENT_SECRET'], app.config['REDIRECT_URI'])
         memcache.add('reddit',reddit)
     return reddit
+    
+def post_to_sub(post):
+    reddit = get_reddit()
+    try: 
+        reddit.set_access_credentials({'identity','submit'}, g.user.access_token, g.user.refresh_token)
+    except praw.errors.OAuthInvalidToken:
+        logging.info("OAuthInvalidToken exception (token expired) while posting to sub for user %s. Refreshing..." % g.user.username)
+        try: 
+            access_info = reddit.refresh_access_information(g.user.refresh_token)
+            reddit.set_access_credentials(access_info['scope'], access_info['access_token'], access_info['refresh_token'])
+        except:
+            logging.error("E001: Unknown exception while posting to sub for user %s" % g.user.username)
+            logging.error(sys.exc_info())
+            flash("Unknown error posting to reddit. Your post was *not* posted on /r/MyDaily3.", 'error')
+            return None
+    except:
+        logging.error("E002: Unknown exception while posting to sub for user %s" % g.user.username)
+        logging.error(sys.exc_info())
+        flash("Unknown error posting to reddit. Your post was *not* posted on /r/MyDaily3.", 'error')
+        return None
+    try:
+        submission = reddit.submit(
+                        app.config['MYDAILY3_SUB'], 
+                        post.item1, 
+                        text=" * " + post.item1 + "\n * " + post.item2 + "\n * " + post.item3, 
+                        raise_captcha_exception=True
+                    )
+        return submission
+    except praw.errors.InvalidCaptcha:
+        logging.error("E003: Captcha exception for user %s" % g.user.username)
+        flash("Reddit requires a captcha challenge before you can post because you have low karma. \
+               We can't handle captcha now. Your post was *not* posted on /r/MyDaily3.", 'error')
+        return None
+    except: 
+        logging.error("E004: Unknown exception while posting to sub for user %s" % g.user.username)
+        logging.error(sys.exc_info())
+        flash("Unknown error posting to reddit. Your post was *not* posted on /r/MyDaily3.", 'error')
+        return None
+        
+def post_to_thread(post):
+    reddit = get_reddit()
+    try:
+        reddit.set_access_credentials({'identity','submit'}, g.user.access_token, g.user.refresh_token)
+    except praw.errors.OAuthInvalidToken:
+        logging.info("OAuthInvalidToken exception (token expired) while posting to thread for user %s. Refreshing..." % g.user.username)
+        try: 
+            access_info = reddit.refresh_access_information(g.user.refresh_token)
+            reddit.set_access_credentials(access_info['scope'], access_info['access_token'], access_info['refresh_token'])
+        except:
+            logging.error("E101: Unknown exception while posting to thread for user %s" % g.user.username)
+            logging.error(sys.exc_info())
+            flash("Unknown error posting to reddit. Your post was *not* posted on /r/MyDaily3.", 'error')
+            return None
+    except:
+        logging.error("E102: Unknown exception while posting to thread for user %s" % g.user.username)
+        logging.error(sys.exc_info())
+        flash("Unknown error posting to reddit. Your post was *not* posted on /r/MyDaily3.", 'error')
+        return None
+    try:
+        threads = reddit.get_subreddit(app.config['MYDAILY3_SUB']).get_new()
+        for t in threads:
+            if t.stickied:
+                return t.add_comment(" * " + post.item1 + "\n * " + post.item2 + "\n * " + post.item3)
+        return None
+    except praw.errors.InvalidCaptcha:
+        logging.error("E103: Captcha exception for user %s" % g.user.username)
+        flash("Reddit requires a captcha challenge before you can post because you have low karma. \
+               We can't handle captcha now. Your post was *not* posted on /r/MyDaily3.", 'error')
+        return None
+    except: 
+        logging.error("E104: Unknown exception while posting to thread for user %s" % g.user.username)
+        logging.error(sys.exc_info())
+        flash("Unknown error posting to reddit. Your post was *not* posted on /r/MyDaily3.", 'error')
+        return None
+
 
 @app.before_request
 def load_user():
@@ -129,6 +204,8 @@ def post_daily3():
         )
         post.put()
         g.user_post = post
+        #post_to_sub(post)
+        post_to_thread(post)
     return render_template('user_panel.html')
 
 def logout():
