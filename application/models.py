@@ -20,8 +20,8 @@ class User(ndb.Model):
     """
     
     username = ndb.StringProperty()
-    created_reddit = ndb.DateProperty()
-    created_daily3 = ndb.DateProperty(auto_now_add=True)
+    created_reddit = ndb.DateTimeProperty()
+    created_daily3 = ndb.DateTimeProperty(auto_now_add=True)
     access_token = ndb.StringProperty(indexed=False)
     refresh_token = ndb.StringProperty(indexed=False)
     
