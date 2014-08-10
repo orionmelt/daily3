@@ -1,0 +1,203 @@
+/*
+	Royale by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+*/
+
+/*********************************************************************************/
+/* Basic                                                                         */
+/*********************************************************************************/
+
+	body,input,textarea,select
+	{
+		line-height: 1.75em;
+		font-size: 9.5pt;
+		letter-spacing: 0;
+	}
+
+	body
+	{
+		padding-top: 70px;
+	}
+
+	h2, h3, h4, h5, h6
+	{
+		font-size: 1.5em;
+	}
+
+	section,
+	article
+	{
+		clear: both;
+		margin: 2em 0 2em 0 !important;
+	}
+
+	section > :first-child,
+	article > :first-child
+	{
+		margin-top: 0 !important;
+	}
+
+	section:first-child,
+	article:first-child
+	{
+		margin-top: 0 !important;
+	}
+	
+	.container
+	{
+		padding: 0em 1em;
+	}
+
+	.button
+	{
+		display: inline-block;
+		width: 50%;
+		text-align: center;
+	}
+	
+	.divider
+	{
+		margin-top: 4em;
+		padding-top: 4em;
+	}
+
+	header
+	{
+		margin-bottom: 1.5em;
+	}
+		
+		header h2
+		{
+			line-height: 1.2em;
+			font-size: 2em;
+		}
+	
+	
+/*********************************************************************************/
+/* UI                                                                            */
+/*********************************************************************************/
+
+	#titleBar
+	{
+		background: #333;
+	}
+
+		#titleBar .title a
+		{
+			display: block;
+			color: #fff !important;
+			text-align: center;
+			text-decoration: none;
+			line-height: 70px;
+			font-size: 1.6em;
+			font-weight: 700;
+		}
+
+		#titleBar .toggle
+		{
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 80px;
+			height: 60px;
+		}
+
+			#titleBar .toggle:before
+			{
+				content: '';
+				display: block;
+				width: 60px;
+				height: 40px;
+				border-radius: 4px;
+				position: absolute;
+				left: 5px;
+				top: 5px;
+			}
+
+			#titleBar .toggle:after
+			{
+				content: '';
+				display: block;
+				width: 20px;
+				height: 20px;
+				position: absolute;
+				left: 15px;
+				top: 25px;
+				background: url('images/mobileUI-site-nav-opener-bg.svg') 0px 0px no-repeat;
+				opacity: 1;
+			}
+
+			#titleBar .toggle:active:after
+			{
+				opacity: 1;
+			}
+
+	#navPanel
+	{
+		background: #ccc;
+	}
+
+		#navPanel .link
+		{
+			display: block;
+			color: #888;
+			text-decoration: none;
+			text-transform: uppercase;
+			height: 44px;
+			line-height: 44px;
+			letter-spacing: 1px;
+			border-top: solid 1px #333;
+			padding: 0 1em 0 1em;
+		}
+		
+			#navPanel .link:first-child
+			{
+				border-top: 0;
+			}
+			
+			#navPanel .link.depth-0
+			{
+				color: #333;
+			}
+
+			#navPanel .indent-1 { display: inline-block; width: 1em; }
+			#navPanel .indent-2 { display: inline-block; width: 2em; }
+			#navPanel .indent-3 { display: inline-block; width: 3em; }
+			#navPanel .indent-4 { display: inline-block; width: 4em; }
+			#navPanel .indent-5 { display: inline-block; width: 5em; }
+			#navPanel .depth-0 { color: #fff; }
+			
+/*********************************************************************************/
+/* Header                                                                        */
+/*********************************************************************************/
+
+	#header
+	{
+		display: none;
+	}
+
+	#logo
+	{
+		display: none;
+	}
+	
+	#logo i
+	{
+		margin-right:0.5em;
+	}
+	
+	
+	#nav
+	{
+		display: none;
+	}
+
+/*********************************************************************************/
+/* Main                                                                          */
+/*********************************************************************************/
+
+	#main
+	{
+		padding: 2em 1em;
+	}

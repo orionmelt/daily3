@@ -1,0 +1,395 @@
+@charset 'UTF-8';
+
+
+/*********************************************************************************/
+/* Basic                                                                         */
+/*********************************************************************************/
+
+	body
+	{
+		background: #eee;
+		color:#222;
+	}
+
+	body,input,textarea,select
+	{
+		font-family: 'Oxygen', sans-serif;
+		font-size: 10pt;
+		line-height: 1.5em;
+	}
+
+	h1,h2,h3,h4,h5,h6
+	{
+		font-weight: bold;
+	}
+	
+		h1 a, h2 a, h3 a, h4 a, h5 a, h6 a
+		{
+			color: inherit;
+			text-decoration: none;
+		}
+		
+	strong, b
+	{
+		font-weight: bold;
+		color: #000000;
+	}
+	
+	em, i
+	{
+		font-style: italic;
+	}
+
+	a
+	{
+		color:inherit;
+		font-weight:bold;
+		text-decoration:none;
+	}
+
+	sub
+	{
+		position: relative;
+		top: 0.5em;
+		font-size: 0.8em;
+	}
+	
+	sup
+	{
+		position: relative;
+		top: -0.5em;
+		font-size: 0.8em;
+	}
+	
+	hr
+	{
+		border: 0;
+		border-top: solid 1px #ddd;
+	}
+	
+	blockquote
+	{
+		border-left: solid 0.5em #ddd;
+		padding: 1em 0 1em 2em;
+		font-style: italic;
+	}
+	
+	p, ul, ol, dl, table
+	{
+		margin-bottom: 1em;
+	}
+	
+	ul
+	{
+		list-style:square;
+		margin:0.5em 0;
+	}
+	
+	ul li
+	{
+		margin-left:1.5em;
+		margin-bottom:0.5em;
+	}
+	
+	#loading {
+		padding:0 0.5em;
+	}
+	
+	
+	/* Flat Sticky Notes */
+	#user_post
+	{
+		background:#4cc;
+		padding:1.5em;
+		border-bottom:2px solid #2ca0a0;
+	}
+	
+	#user_post h4 
+	{
+		font-size:1.25em;
+	}
+	
+	.post
+	{
+		background:#998;
+		padding:1em;
+		border-bottom:2px solid #776;
+	}
+		
+	#user_post p, .post p
+	{
+		color:#444;
+		font-size:0.8em;
+	}
+	
+	.post p a:hover, #user_post p a:hover
+	{
+		color:#222;
+	}
+	
+	#post_daily3 p
+	{
+		display:inline-block;
+	}
+	
+	.blurb
+	{
+		background:#9b3;
+		padding:1em;
+		border-bottom:2px solid #6d8624;
+	}
+	
+	.blurb h2
+	{
+		margin-bottom:1em;
+	}
+		
+	.error 
+	{
+		color:#f00;
+		font-weight:bold;
+	}
+	
+	#post_daily3 h4
+	{
+		margin-top:1em;
+	}
+	
+	#post_daily3 textarea
+	{	
+		width:100%;
+		margin-bottom:0.5em;
+		padding:0.4em;
+	}
+	
+	#post_daily3 .button
+	{
+		margin-left:0em;
+		
+	}
+	
+	.page_message 
+	{
+		text-align:center;
+		color:#B12913;
+		font-size:4em;
+		margin:0.5em;
+	}
+	
+	.page_message_byline
+	{
+		text-align:center;
+	}
+		
+	
+	.heading 
+	{
+		font-size:1.5em;
+		text-align:right;
+	}
+
+	header
+	{
+		margin-bottom: 1em;
+	}
+		
+		header h2
+		{
+			font-size: 1.5em;
+		}		
+	
+
+	br.clear
+	{
+		clear: both;
+	}
+
+	/* Sections/Articles */
+	
+		section,
+		article
+		{
+			margin-bottom: 3em;
+		}
+		
+		section > :last-child,
+		article > :last-child
+		{
+			margin-bottom: 0;
+		}
+
+		section:last-child,
+		article:last-child
+		{
+			margin-bottom: 0;
+		}
+
+		.row > section,
+		.row > article
+		{
+			margin-bottom: 0;
+		}
+
+
+	/* Buttons */
+		
+		.button
+		{
+			position: relative;
+			display: inline-block;
+			padding: 0.8em 1.5em;
+			background: #333;
+			text-decoration: none;
+			text-transform: uppercase;
+			font-size: 1em;
+			color: #eee;
+			border:none;
+			font-weight:bold;
+			-moz-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+			-webkit-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+			-o-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+			-ms-transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+			transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out;
+			cursor: pointer;
+		}
+
+			.button:hover
+			{
+				background: #444;
+				color: #eee !important;
+			}
+				
+		.divider
+		{
+			border-top: 1px solid rgba(0,0,0,.2);
+		}
+
+
+/*********************************************************************************/
+/* Header                                                                        */
+/*********************************************************************************/
+
+	#header
+	{
+		background:#333;
+	}
+
+		#header .container
+		{
+			position: relative;
+			height: 60px;
+		}
+
+/*********************************************************************************/
+/* Logo                                                                          */
+/*********************************************************************************/
+
+	#logo
+	{
+		position: absolute;
+		left: 0em;
+		top: 0em;		
+	}
+	
+		#logo h1
+		{
+			color: #eee;
+		}
+	
+		#logo a
+		{
+			display: block;
+			font-size: 1.8em;
+			font-weight: 600;
+			line-height: 60px;
+			color: #eee;
+		}
+
+		#logo i
+		{
+			margin-right:0.25em;
+		}
+
+/*********************************************************************************/
+/* Nav                                                                           */
+/*********************************************************************************/
+
+	#nav
+	{
+		position: absolute;
+		right: 0em;
+		top: 0.6em;
+	}
+
+		#nav > ul > li
+		{
+			float: left;
+			list-style:none;
+		}
+		
+			#nav > ul > li:last-child
+			{
+				padding-right: 0;
+			}
+
+			#nav > ul > li > a,
+			#nav > ul > li > span
+			{
+				display: block;
+				margin-left: 0.7em;
+				padding: 0.50em 1.2em;
+				letter-spacing: 0.06em;
+				text-decoration: none;
+				text-transform: uppercase;
+				font-size: 0.80em;
+				outline: 0;
+				color: #eee;
+			}
+
+			#nav li.active a
+			{
+				/*background: #6e090b;*/
+				/*background:#298A08;*/
+				background:#eee;
+				border-radius: 25px;
+				color: #333;
+			}
+
+			#nav > ul > li > ul
+			{
+				display: none;
+			}
+
+/*********************************************************************************/
+/* Main                                                                          */
+/*********************************************************************************/
+
+	#main
+	{
+		position: relative;
+	}
+	
+/*********************************************************************************/
+/* Footer                                                                        */
+/*********************************************************************************/
+
+	#footer
+	{
+		position: relative;
+		padding: 3em 0em;
+		text-align: center;
+		color: rgba(255,255,255,.2);
+		background:#ddd;
+		color:#999;
+	}
+
+	#footer .container
+	{
+	}
+
+	#footer a
+	{
+		text-decoration: none;
+		color: #666;
+	}
+	
