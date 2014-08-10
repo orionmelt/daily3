@@ -6,6 +6,7 @@ from flask import Flask
 import os
 from flask_debugtoolbar import DebugToolbarExtension
 from werkzeug.debug import DebuggedApplication
+from jinja_filters import format_date, time_since
 
 app = Flask('application')
 
@@ -38,6 +39,9 @@ else:
 
 # Enable jinja2 loop controls extension
 app.jinja_env.add_extension('jinja2.ext.loopcontrols')
+
+app.jinja_env.filters['format_date'] = format_date
+app.jinja_env.filters['time_since'] = time_since
 
 # Pull in URL dispatch routes
 import urls
