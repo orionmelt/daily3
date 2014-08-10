@@ -30,14 +30,17 @@ class Post(ndb.Model):
     """Models an individual Daily3 post entry.
     
     Attributes:
-        posted   - DateTime when entry was posted
-        user     - User who created this post
-        item1    - Daily3 item 1
-        item2    - Daily3 item 2
-        item3    - Daily3 item 3
+        posted       - DateTime when entry was posted
+        posted_date  - Date when entry was posted - added despite already 
+                       existing posted (DateTime), for ndb query performance
+        user         - User who created this post
+        item1        - Daily3 item 1
+        item2        - Daily3 item 2
+        item3        - Daily3 item 3
     """
     
     posted = ndb.DateTimeProperty(auto_now_add=True)
+    posted_date = ndb.DateProperty(auto_now_add=True)
     user = ndb.KeyProperty(kind="User")
     item1 = ndb.TextProperty()
     item2 = ndb.TextProperty()
