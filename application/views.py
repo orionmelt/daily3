@@ -11,24 +11,130 @@ For example the *say_hello* handler, handling the URL route '/hello/<username>',
 from google.appengine.api import users
 from google.appengine.runtime.apiproxy_errors import CapabilityDisabledError
 
-from flask import request, render_template, flash, url_for, redirect
+from flask import request, render_template, flash, url_for, redirect, session, g, abort
 
 from flask_cache import Cache
 
 from application import app
 from decorators import login_required, admin_required
 from forms import ExampleForm
-from models import ExampleModel
+from models import User, Post, ExampleModel
 
+from google.appengine.api import memcache
+from datetime import datetime, date
+from uuid import uuid4
+import praw
+import logging
 
 # Flask-Cache (configured to use App Engine Memcache API)
 cache = Cache(app)
 
+def get_reddit():
+    reddit = memcache.get('reddit')
+    if not reddit:
+        reddit = praw.Reddit('Daily3.me by u/orionmelt ver 0.1.')
+        reddit.set_oauth_app_info(app.config['CLIENT_ID'], app.config['CLIENT_SECRET'], app.config['REDIRECT_URI'])
+        memcache.add('reddit',reddit)
+    return reddit
+
+@app.before_request
+def load_user():
+    """Load currently logged in user and their current (today's) post, or a login URL if user is not logged in"""
+    user = None
+    user_post = None
+    login_url = None
+    
+    try:
+        if session['user']:
+            user = User.get_by_id(session['user'])
+    except KeyError:
+        pass
+    
+    if user:
+        try:
+            user_post = Post.query(Post.posted_date==datetime.today(),Post.user==user.key).get()
+        except IndexError:
+            pass
+    else:
+        reddit = get_reddit()
+        login_url = reddit.get_authorize_url(str(uuid4()),['identity','submit'],refreshable=True)
+
+    g.user = user
+    g.user_post = user_post
+    g.login_url = login_url
+        
 
 def home():
-    return redirect(url_for('list_examples'))
+    posts = Post.query().order(-Post.posted).fetch()
+    return render_template('index.html', posts=posts)
+    
+def authorize():
+    error = request.args.get('error')
+    code = request.args.get('code')
+    state = request.args.get('state')
+    #TODO: Handle state here
+    if error:
+        flash(error, 'error')
+        #TODO: Handle error here
+        return redirect(url_for('home'))
+    if not code:
+        #TODO: No code received, something went wrong
+        return redirect(url_for('home'))
+    else:
+        reddit = get_reddit()
+        access_info = reddit.get_access_information(code)
+        praw_user = reddit.get_me()
+        user = User.get_by_id(praw_user.name)
+        if not user:
+            user = User(
+                id=praw_user.name,
+                username=praw_user.name,
+                created_reddit=datetime.fromtimestamp(praw_user.created)
+                )
+        user.access_token = access_info['access_token']
+        user.refresh_token = access_info['refresh_token']
+        user.put()
+        session['user'] = user.username
+        return redirect(url_for('home'))
+        
+def user_profile(username):
+    posts = None
+    profile = User.get_by_id(username)
+    if profile:
+        posts = Post.query(Post.user==profile.key).order(-Post.posted).fetch()
+        return render_template('user_profile.html', profile=profile, posts=posts)
+    else:
+        abort(404)
 
+def me():
+    posts = None
+    if g.user:
+        profile = g.user
+        posts = Post.query(Post.user==profile.key).order(-Post.posted).fetch()
+        return render_template('user_profile.html', profile=profile, posts=posts)
+    else:
+        return redirect(url_for('home'))
+        
+      
+def post_daily3():
+    if g.user:
+        item1 = request.form['item1']
+        item2 = request.form['item2']
+        item3 = request.form['item3']
+        post = Post(
+                user=g.user.key,
+                item1=item1,
+                item2=item2,
+                item3=item3
+        )
+        post.put()
+        g.user_post = post
+    return render_template('user_panel.html')
 
+def logout():
+    session.pop('user', None)
+    return redirect(url_for('home'))
+    
 def say_hello(username):
     """Contrived example to demonstrate Flask's url routing capabilities"""
     return 'Hello %s' % username

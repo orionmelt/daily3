@@ -1,0 +1,62 @@
+					<section id="user_panel" class="4u">
+						{% if g.user %}
+						<div id="user_post">
+							{% if g.user_post %}
+							<p>{{ g.user_post.posted|format_date }} | <a href="/me">{{ g.user.username }}</a> posted {{ g.user_post.posted|time_since }} ago</p>
+							<ul>
+								<li>{{ g.user_post.item1 }}</li>
+								<li>{{ g.user_post.item2 }}</li>
+								<li>{{ g.user_post.item3 }}</li>
+							</ul>
+							{% else %}
+							<header>
+								<h4>My Daily3</h4>
+							</header>
+							<div id="post_daily3">
+								<form id="post_form" method="post" action="/post_daily3">
+									<textarea id="item1" name="item1" maxlength="140"></textarea>
+									<textarea id="item2" name="item2" maxlength="140"></textarea>
+									<textarea id="item3" name="item3" maxlength="140"></textarea>
+									<input id="post_button" class="button" type="submit" value="Post">
+									<p id="loading"></p>
+									<p>(max 140 characters)</p>
+								</form>
+							</div>
+							<script>
+							$( "#post_form" ).submit(function( event ) {
+ 							  event.preventDefault();
+ 							  var $form = $( this ),
+							    item1 = $form.find( "textarea[name='item1']" ).val(),
+								item2 = $form.find( "textarea[name='item2']" ).val(),
+								item3 = $form.find( "textarea[name='item3']" ).val(),
+							    url = $form.attr( "action" );
+ 							  var posting = $.post( url, { item1: item1, item2:item2, item3:item3 } );
+							  $( "#loading" ).html('<i class="fa fa-spinner fa-lg fa-spin"></i>'); 
+							  $( "#post_button" ).prop("disabled",true);
+							  posting.done(function( data ) { 
+							    $( "#user_panel" ).replaceWith( data );
+							  });
+							});
+							</script>
+							{% endif %}
+						</div>
+						{% else %}
+						<div id="user_post">
+							<header>
+								{% if not g.user %}
+								<h2><a href="{{ g.login_url }}"><i class="fa fa-reddit fa-lg"></i> Login with reddit</a></h2>
+								{% else %}
+								<h2>Login temporarily disabled</h2>
+								{% endif %}
+							<header>
+						</div>
+						{% endif %}
+						
+						{% with messages = get_flashed_messages(with_categories=true) %}
+							{% if messages %}
+							{% for category, message in messages %}
+							<p class="error">Error: {{ message }}</p>
+						    {% endfor %}
+							{% endif %}
+						{% endwith %}
+					</section>

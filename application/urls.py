@@ -18,6 +18,21 @@ app.add_url_rule('/_ah/warmup', 'warmup', view_func=views.warmup)
 # Home page
 app.add_url_rule('/', 'home', view_func=views.home)
 
+# Authorize page
+app.add_url_rule('/authorize', 'authorize', view_func=views.authorize)
+
+# Current user profile page
+app.add_url_rule('/me', 'me', view_func=views.me)
+
+# User profile page
+app.add_url_rule('/u/<username>', 'user_profile', view_func=views.user_profile)
+
+# Daily3 post
+app.add_url_rule('/post_daily3', 'post_daily3', view_func=views.post_daily3, methods=['POST'])
+
+# Logout
+app.add_url_rule('/logout', 'logout', view_func=views.logout)
+
 # Say hello
 app.add_url_rule('/hello/<username>', 'say_hello', view_func=views.say_hello)
 
