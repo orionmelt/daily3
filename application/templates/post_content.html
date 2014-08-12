@@ -1,4 +1,4 @@
-						<p>{{ post.posted|format_date }} | <a href="/u/{{ post.user.get().username }}">{{ post.user.get().username }}</a> posted {{ post.posted|time_since }} ago {% if post.source_link %}<a href="{{ post.source_link }}" title="view on reddit"><i class="fa fa-comment fa-lg"></i></a>{% endif %}</p>
+						<p>{{ post.posted|format_date }} | <a href="/u/{{ post.user.get().username }}">{{ post.user.get().username }}</a> posted {{ post.posted|time_since }} ago {% if post.source_link %}<a href="{{ post.source_link }}" title="view on reddit"><i class="fa fa-comment"></i></a>{% endif %}</p>
 						<ul>
 							<li>{{ post.item1 }}</li>
 							<li>{{ post.item2 }}</li>

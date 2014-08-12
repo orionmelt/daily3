@@ -123,6 +123,11 @@
 		font-size:0.8em;
 	}
 	
+	#user_post i, .post i
+	{
+		margin-left:0.5em;
+	}
+	
 	.post p a:hover, #user_post p a:hover
 	{
 		color:#222;
