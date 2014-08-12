@@ -137,6 +137,7 @@ def load_user():
     g.user = user
     g.user_post = user_post
     g.login_url = login_url
+    g.ga_id = app.config['GA_ID']
         
 
 def home():

@@ -30,6 +30,7 @@ class Development(Config):
     CLIENT_SECRET = DEV_CLIENT_SECRET
     REDIRECT_URI = DEV_REDIRECT_URI
     MYDAILY3_SUB = 'mydaily3_sandbox'
+    GA_ID = None
 
 class Testing(Config):
     TESTING = True
@@ -44,3 +45,5 @@ class Production(Config):
     CLIENT_SECRET = PROD_CLIENT_SECRET
     REDIRECT_URI = PROD_REDIRECT_URI
     MYDAILY3_SUB = 'mydaily3'
+    
+    GA_ID = PROD_GA_ID
