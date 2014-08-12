@@ -128,9 +128,14 @@
 		margin-left:0.5em;
 	}
 	
+	a:hover
+	{
+		color:#666;
+	}
+	
 	.post p a:hover, #user_post p a:hover
 	{
-		color:#222;
+		color:#000;;
 	}
 	
 	#post_daily3 p
@@ -173,6 +178,11 @@
 	{
 		margin-left:0em;
 		
+	}
+	
+	#user_head 
+	{
+		margin-bottom:1.5em;
 	}
 	
 	.page_message 

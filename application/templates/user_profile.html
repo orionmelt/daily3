@@ -8,19 +8,21 @@
 {% endif %}
 {% endblock %}
 
-{% if g.user.username == profile.username %}
-{% block nav_me %}active{% endblock %}
-{% endif %}
+{% block nav_me %}
+{% if g.user.username == profile.username %}active{% endif %}
+{% endblock %}
 
 {% set start = 0 %}
 {% block content %}
 		<!-- Main -->
 		<div id="main" class="container">
-			<div class="row">
+			<div id="user_head">
 				<header>
-					<h2>{{ profile.username }}'s Daily3s</h2>
+					<h2><a href="/u/{{ profile.username }}">{{ profile.username }}</a></h2>
 				</header>
+				<p><a href="http://www.reddit.com/user/{{ profile.username }}">redditor for {{ profile.created_reddit|time_since }}</a></p>
 			</div>
+			
 			<div class="row">
 				{% include 'user_panel.html' %}
 				{% if g.user %}
