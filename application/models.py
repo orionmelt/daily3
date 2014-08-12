@@ -45,7 +45,7 @@ class Post(ndb.Model):
     item1 = ndb.TextProperty()
     item2 = ndb.TextProperty()
     item3 = ndb.TextProperty()
-    link = ndb.StringProperty(indexed=False)
+    source_link = ndb.StringProperty(indexed=False)
 
 
 class ExampleModel(ndb.Model):

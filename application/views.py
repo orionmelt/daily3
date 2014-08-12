@@ -32,7 +32,7 @@ cache = Cache(app)
 def get_reddit():
     reddit = memcache.get('reddit')
     if not reddit:
-        reddit = praw.Reddit('Daily3.me by u/orionmelt ver 0.1.')
+        reddit = praw.Reddit('Daily3.me by u/orionmelt ver 0.2.')
         reddit.set_oauth_app_info(app.config['CLIENT_ID'], app.config['CLIENT_SECRET'], app.config['REDIRECT_URI'])
         memcache.add('reddit',reddit)
     return reddit
@@ -63,7 +63,7 @@ def post_to_sub(post):
                         text=" * " + post.item1 + "\n * " + post.item2 + "\n * " + post.item3, 
                         raise_captcha_exception=True
                     )
-        return submission
+        return submission.url
     except praw.errors.InvalidCaptcha:
         logging.error("E003: Captcha exception for user %s" % g.user.username)
         flash("Reddit requires a captcha challenge before you can post because you have low karma. \
@@ -98,7 +98,7 @@ def post_to_thread(post):
         threads = reddit.get_subreddit(app.config['MYDAILY3_SUB']).get_new()
         for t in threads:
             if t.stickied:
-                return t.add_comment(" * " + post.item1 + "\n * " + post.item2 + "\n * " + post.item3)
+                return t.add_comment(" * " + post.item1 + "\n * " + post.item2 + "\n * " + post.item3).permalink
         return None
     except praw.errors.InvalidCaptcha:
         logging.error("E103: Captcha exception for user %s" % g.user.username)
@@ -202,10 +202,12 @@ def post_daily3():
                 item2=item2,
                 item3=item3
         )
+        #post_to_sub(post)
+        source_link = post_to_thread(post)
+        if source_link:
+            post.source_link = source_link
         post.put()
         g.user_post = post
-        #post_to_sub(post)
-        post_to_thread(post)
     return render_template('user_panel.html')
 
 def logout():

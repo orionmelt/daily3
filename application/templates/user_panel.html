@@ -2,12 +2,8 @@
 						{% if g.user %}
 						<div id="user_post">
 							{% if g.user_post %}
-							<p>{{ g.user_post.posted|format_date }} | <a href="/me">{{ g.user.username }}</a> posted {{ g.user_post.posted|time_since }} ago</p>
-							<ul>
-								<li>{{ g.user_post.item1 }}</li>
-								<li>{{ g.user_post.item2 }}</li>
-								<li>{{ g.user_post.item3 }}</li>
-							</ul>
+							{% set post = g.user_post %}
+							{% include 'post_content.html' %}
 							{% else %}
 							<header>
 								<h4>My Daily3</h4>

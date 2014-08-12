@@ -11,12 +11,7 @@
 				{% for post in posts[:2] %}
 				<section class="4u">
 					<div class="post">
-						<p>{{ post.posted|format_date }} | <a href="/u/{{ post.user.get().username }}">{{ post.user.get().username }}</a> posted {{ post.posted|time_since }} ago</p>
-						<ul>
-							<li>{{ post.item1 }}</li>
-							<li>{{ post.item2 }}</li>
-							<li>{{ post.item3 }}</li>
-						</ul>
+						{% include 'post_content.html' %}
 					</div>
 				</section>
 				{% endfor %}
@@ -29,12 +24,7 @@
 				{% for post in posts[start:] %}
 				<section class="4u">
 					<div class="post">
-						<p>{{ post.posted|format_date }} | <a href="/u/{{ post.user.get().username }}">{{ post.user.get().username }}</a> posted {{ post.posted|time_since }} ago</p>
-						<ul>
-							<li>{{ post.item1 }}</li>
-							<li>{{ post.item2 }}</li>
-							<li>{{ post.item3 }}</li>
-						</ul>
+						{% include 'post_content.html' %}
 					</div>
 				</section>
 				{% if loop.index is divisibleby 3 %}
