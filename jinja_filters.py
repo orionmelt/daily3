@@ -3,6 +3,12 @@ from datetime import datetime
 #Change %e to %d if running on Windows
 def format_date(value, format='%b %e'):
     return value.strftime(format)
+
+def format_month(value, format='%b'):
+    return value.strftime(format)
+
+def format_day(value, format='%e'):
+    return value.strftime(format)
     
 def time_since(value):
     now = datetime.utcnow()
