@@ -240,7 +240,7 @@ def favorite(post_id):
                 post=ndb.Key(urlsafe=post_id)
         )
         f.put()
-        return 'Faved'        
+        return 'Faved!'        
 
 def logout():
     session.pop('user', None)
