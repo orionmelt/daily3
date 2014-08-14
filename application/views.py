@@ -233,7 +233,7 @@ def favorite(post_id):
     f = Favorite.query(Favorite.user==g.user.key,Favorite.post==ndb.Key(urlsafe=post_id)).get()
     if f:
         f.key.delete()
-        return 'Unfaved'
+        return 'Unfaved!'
     else:
         f = Favorite(
                 user=g.user.key,
