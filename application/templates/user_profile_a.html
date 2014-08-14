@@ -48,6 +48,7 @@
 									<span class="month" id="udm{{ loop.index }}"><script>$("#udm{{ loop.index }}").text(moment(moment.utc('{{ post.posted }}').toDate()).format("MMM"));</script></span>
 									<span class="day" id="udd{{ loop.index }}"><script>$("#udd{{ loop.index }}").text(moment(moment.utc('{{ post.posted }}').toDate()).format("D"));</script></span>
 									<span class="source_link">{% if post.source_link %}<a href="{{ post.source_link }}" title="view on reddit"><i class="fa fa-comment"></i></a>{% endif %}</span>
+                                    <span>{% if g.user %}<a class="fav_link {% if post.faved %}faved{% endif %}" href="{{ url_for('favorite', post_id=post.key.urlsafe()) }}"><i class="fa fa-heart"></i></a>{% endif %}</span>
 									<noscript><span class="month">{{ post.posted|format_month }}</span><span class="day">{{ post.posted|format_day }}</span></noscript>
 								</div>
 								{% include 'post_content_a.html' %}
@@ -63,6 +64,13 @@
 			</div>
 		</div>
 		<!-- /Main -->			
+        <script>
+            $( ".fav_link" ).click(function(e) {
+				e.preventDefault();
+				$(this).toggleClass("faved");
+				$.get(this.href);
+			});
+        </script>
 		
 		
 {% endblock %}

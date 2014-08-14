@@ -188,6 +188,10 @@ def user_profile(username,version="default"):
         if version=="default":
             return render_template('user_profile.html', profile=profile, posts=posts)
         elif version=="a":
+            if g.user:
+                for post in posts:
+                    post.faved = True if Favorite.query(Favorite.user==g.user.key,Favorite.post==post.key).get() else False
+
             return render_template('user_profile_a.html', profile=profile, posts=posts)
     else:
         abort(404)
