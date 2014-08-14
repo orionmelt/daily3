@@ -93,16 +93,15 @@
 	
 	#loading {
 		padding:0 0.5em;
-		margin-right:1em;
 	}
 	
 	
 	/* Flat Sticky Notes */
 	#user_post
 	{
-		background:#4cc;
+		background:#9b3;
 		padding:1.5em;
-		border-bottom:2px solid #2ca0a0;
+		border-bottom:2px solid #6d8624;
 	}
 	
 	#user_post h4 
@@ -146,9 +145,9 @@
 	
 	.blurb
 	{
-		background:#9b3;
+		background:#4cc;
 		padding:1em;
-		border-bottom:2px solid #6d8624;
+		border-bottom:2px solid #2ca0a0;
 	}
 	
 	.blurb h2
@@ -409,4 +408,138 @@
 		text-decoration: none;
 		color: #666;
 	}
+	
+
+/*********************************************************************************/
+/* Design testing                                                                */
+/*********************************************************************************/
+	.design_ver 
+	{
+		text-align:center;
+		background:#C4192D;
+		padding:0.5em;
+		color:#fff;
+		border:1px dashed #fff;
+	}
+	
+	.design_ver a
+	{
+		text-decoration:underline;
+	}
+	
+	.design_ver a:hover
+	{
+		color:#eee;
+		text-decoration:none;
+	}
+
+/*********************************************************************************/
+/* Design testing - ver a                                                        */
+/*********************************************************************************/
+
+	.c1 /* Weathered or not - custom */
+	{
+		background:#d9cecb;
+		border-bottom:2px solid #bca9a4;
+	}
+	
+	.c2 /* Paper Fawn */
+	{
+		background:#FFCBA6;
+		border-bottom:2px solid #ffa362;
+	}
+	
+	.c3 /* La-La-Lavender */
+	{
+		background:#EABBF7; 
+		border-bottom:2px solid #d77ef0;
+	}
+	
+	.c4 /* Baby Duc */
+	{
+		background:#FFF982;
+		border-bottom:2px solid #fff63e;
+	}
+	
+	.c5 /* Minty Aqua */
+	{
+		background:#A0F1C7;
+		border-bottom:2px solid #65e8a4;
+	}
+	
+	
+	#user_head_a
+	{
+		background:#4cc;
+		padding:1em;
+		border-bottom:2px solid #2ca0a0;
+	}
+		
+	.post_date
+	{
+		padding:0 1em 0.5em 1em;
+		text-align:right;
+	}
+	
+	.post_date .source_link
+	{
+		vertical-align:middle;
+		margin-left:0.25em;
+	}
+	
+	
+	.month
+	{
+		font-weight:bold;
+		display:inline;
+		vertical-align:middle;
+		margin-right:0.5em;
+	}
+	
+	.day
+	{
+		font-weight:bold;
+		font-size:1.5em;
+		display:inline;
+		vertical-align:middle;
+	}
+	
+	#user_post_a
+	{
+		background:#9b3;
+		padding:1.5em;
+		border-bottom:2px solid #6d8624;
+	}
+	
+	#user_post_a h4 
+	{
+		font-size:1.25em;
+		width:50%;
+		display:inline-block;
+	}
+	
+	#user_post_a .counter
+	{
+		width:50%;
+		text-align:right;
+		display:inline-block;
+		font-size:0.8em;
+	}
+	
+	#user_post_a p
+	{
+		color:#444;
+		font-size:0.8em;
+	}
+	
+	#user_post_a i
+	{
+		margin-left:0.5em;
+	}
+	
+	#user_post_a p a:hover
+	{
+		color:#000;
+	}
+
 	

@@ -1,0 +1,68 @@
+{% extends "daily3_base.html" %}
+
+{% block title %}
+{% if g.user.username == profile.username %}
+ - Me
+{% else %}
+ - Overview for {{ profile.username }}
+{% endif %}
+{% endblock %}
+
+{% block nav_me %}
+{% if g.user.username == profile.username %}active{% endif %}
+{% endblock %}
+
+{% set start = 0 %}
+{% block content %}
+		<!-- Main -->
+		<div id="main" class="container">
+			<script src="/static/js/masonry.pkgd.min.js"></script>
+			<script src="/static/js/jquery.masonry.ordered.js"></script>
+			<div class="row">
+				<section class="12u">
+					<h2 class="design_ver">You're in beta mode. <a href="{{ url_for('user_profile_a', username=profile.username, version='default') }}">See original page.</a></h2>
+				</section>
+			</div>
+
+			<div class="row">
+				<section class="4u">
+				{% include 'user_panel_a.html' %}
+				</section>
+				
+				<section class="8u">
+					<div class="row">
+						<section class="12u">
+							<div id="user_head_a">
+								<header>
+									<h2><a href="/u/{{ profile.username }}">{{ profile.username }}</a></h2>
+								</header>
+								<p><a href="http://www.reddit.com/user/{{ profile.username }}">redditor for {{ profile.created_reddit|time_since }}</a></p>
+							</div>
+						</section>
+					</div>
+					<div  class="row">
+						{% for post in posts %}
+						<section class="6u">
+							<div class="post c1">
+								<div class="post_date">
+									<span class="month" id="udm{{ loop.index }}"><script>$("#udm{{ loop.index }}").text(moment(moment.utc('{{ post.posted }}').toDate()).format("MMM"));</script></span>
+									<span class="day" id="udd{{ loop.index }}"><script>$("#udd{{ loop.index }}").text(moment(moment.utc('{{ post.posted }}').toDate()).format("D"));</script></span>
+									<span class="source_link">{% if post.source_link %}<a href="{{ post.source_link }}" title="view on reddit"><i class="fa fa-comment"></i></a>{% endif %}</span>
+									<noscript><span class="month">{{ post.posted|format_month }}</span><span class="day">{{ post.posted|format_day }}</span></noscript>
+								</div>
+								{% include 'post_content_a.html' %}
+							</div>
+						</section>
+						{% if loop.index is divisibleby 2 %}
+					</div>
+					<div class="row">
+						{% endif %}
+						{% endfor %}
+					</div>
+				</section>				
+			</div>
+		</div>
+		<!-- /Main -->			
+		
+		
+{% endblock %}
