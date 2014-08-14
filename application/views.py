@@ -139,6 +139,12 @@ def load_user():
     g.user_post = user_post
     g.login_url = login_url
     g.ga_id = app.config['GA_ID']
+    if "beta/a" in request.url:
+        session['beta'] = True
+        g.beta = True
+    else:
+        session['beta'] = False
+        g.beta = False
         
 
 def home(version="default"):
@@ -246,9 +252,12 @@ def favorite(post_id):
         f.put()
         return 'Faved!'        
 
-def logout():
+def logout(version="default"):
     session.pop('user', None)
-    return redirect(url_for('home'))
+    if version=="default":
+        return redirect(url_for('home'))
+    elif version=="a":
+        return redirect(url_for('home_a', version='a'))
     
 def say_hello(username):
     """Contrived example to demonstrate Flask's url routing capabilities"""

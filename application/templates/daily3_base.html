@@ -53,19 +53,28 @@
 		<!-- Header -->
 		<div id="header">
 			<div class="container">
+				{% if g.beta %}
+				{% set home_link = url_for('home_a', version='a') %}
+				{% set me_link = url_for('me_a', version='a') %}
+				{% set logout_link = url_for('logout_a', version='a') %}
+				{% else %}
+				{% set home_link = url_for('home') %}
+				{% set me_link = url_for('me') %}
+				{% set logout_link = url_for('logout') %}
+				{% endif %}
 				
 				<!-- Logo -->
 				<div id="logo">
-					<h1><a href="/"><i class="fa fa-list-ul"></i> DAILY3.me</a></h1>
+					<h1><a href="{{ home_link }}"><i class="fa fa-list-ul"></i> DAILY3.me</a></h1>
 				</div>
 				
 				<!-- Nav -->
 				<nav id="nav">
 					<ul>
-						<li class="{% block nav_home %}{% endblock %}"><a href="/">Home</a></li>
+						<li class="{% block nav_home %}{% endblock %}"><a href="{{ home_link }}">Home</a></li>
 						{% if g.user %}
-						<li class="{% block nav_me %}{% endblock %}"><a href="/me" title="See all your Daily3s"><i class="fa fa-reddit fa-lg"></i> {{ g.user.username }}</a></li>
-						<li><a href="/logout">Logout</a></li>
+						<li class="{% block nav_me %}{% endblock %}"><a href="{{ me_link }}" title="See all your Daily3s"><i class="fa fa-reddit fa-lg"></i> {{ g.user.username }}</a></li>
+						<li><a href="{{ logout_link }}">Logout</a></li>
 						{% endif %}
 					</ul>
 				</nav>

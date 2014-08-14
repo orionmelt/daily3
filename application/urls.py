@@ -38,6 +38,7 @@ app.add_url_rule('/beta/<version>', 'home_a', view_func=views.home)
 app.add_url_rule('/u/<username>/beta/<version>', 'user_profile_a', view_func=views.user_profile)
 app.add_url_rule('/me/beta/<version>', 'me_a', view_func=views.me)
 app.add_url_rule('/post_daily3/beta/<version>', 'post_daily3_a', view_func=views.post_daily3, methods=['POST'])
+app.add_url_rule('/logout/beta/<version>', 'logout_a', view_func=views.logout)
 
 #Favorites
 app.add_url_rule('/favorite/<post_id>', 'favorite', view_func=views.favorite)
