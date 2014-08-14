@@ -541,5 +541,16 @@
 	{
 		color:#000;
 	}
+	
+	.faved
+	{
+		color:#C4192D;
+	}
+	
+	a.fav_link:hover
+	{
+		color:#C4192D !important;
+	}
+	
 
 	

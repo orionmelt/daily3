@@ -32,7 +32,7 @@
 								<a href="{{ post.source_link }}" title="view on reddit"><i class="fa fa-comment"></i></a>
 								{% endif %}
 								{% if g.user %}
-								<a href="{{ url_for('favorite', post_id=post.key.urlsafe()) }}"><i class="fa fa-heart"></i></a>
+								<a class="fav_link {% if post.faved %}faved{% endif %}" href="{{ url_for('favorite', post_id=post.key.urlsafe()) }}"><i class="fa fa-heart"></i></a>
 								{% endif %}
 							</p>
 							{% include 'post_content_a.html' %}
@@ -43,11 +43,17 @@
 		</div>
 		<!-- /Main -->			
 		<script>
-			$('#main_row').masonry({
+			$( "#main_row" ).masonry({
 				transitionDuration: 0,
 				layoutPriorities: {
 					shelfOrder: 1000
 				}
+			});
+			
+			$( ".fav_link" ).click(function(e) {
+				e.preventDefault();
+				$(this).toggleClass("faved");
+				$.get(this.href);
 			});
 		</script>
 {% endblock %}

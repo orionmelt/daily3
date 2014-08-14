@@ -18,7 +18,8 @@ from flask_cache import Cache
 from application import app
 from decorators import login_required, admin_required
 from forms import ExampleForm
-from models import User, Post, ExampleModel
+from models import User, Post, Favorite, ExampleModel
+from google.appengine.ext import ndb
 
 from google.appengine.api import memcache
 from datetime import datetime, date
@@ -145,6 +146,9 @@ def home(version="default"):
     if version=="default":
         return render_template('index.html', posts=posts)
     elif version=="a":
+        if g.user:
+            for post in posts:
+                post.faved = True if Favorite.query(Favorite.user==g.user.key,Favorite.post==post.key).get() else False
         return render_template('index_a.html', posts=posts)
     
 def authorize():
@@ -224,8 +228,19 @@ def post_daily3(version="default"):
         return render_template('user_panel_a.html')
 
 def favorite(post_id):
-    pass
-    
+    if not g.user:
+        return 'Not faved'
+    f = Favorite.query(Favorite.user==g.user.key,Favorite.post==ndb.Key(urlsafe=post_id)).get()
+    if f:
+        f.key.delete()
+        return 'Unfaved'
+    else:
+        f = Favorite(
+                user=g.user.key,
+                post=ndb.Key(urlsafe=post_id)
+        )
+        f.put()
+        return 'Faved'        
 
 def logout():
     session.pop('user', None)
