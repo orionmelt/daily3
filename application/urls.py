@@ -39,6 +39,9 @@ app.add_url_rule('/u/<username>/beta/<version>', 'user_profile_a', view_func=vie
 app.add_url_rule('/me/beta/<version>', 'me_a', view_func=views.me)
 app.add_url_rule('/post_daily3/beta/<version>', 'post_daily3_a', view_func=views.post_daily3, methods=['POST'])
 
+#Favorites
+app.add_url_rule('/favorite/<post_id>', 'favorite', view_func=views.favorite)
+
 
 # Say hello
 app.add_url_rule('/hello/<username>', 'say_hello', view_func=views.say_hello)

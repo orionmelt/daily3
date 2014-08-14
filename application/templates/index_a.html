@@ -22,7 +22,19 @@
 					{% for post in posts %}
 					<section class="4u">
 						<div class="post {{ loop.cycle('c1','c2', 'c3', 'c4', 'c5') }}">
-							<p><span id="udm{{ loop.index }}"><script>$("#udm{{ loop.index }}").text(moment(moment.utc('{{ post.posted }}').toDate()).format("MMM D"));</script></span> | <a href="{{ url_for('user_profile_a', username=post.user.get().username, version='a') }}">{{ post.user.get().username }}</a> posted {{ post.posted|time_since }} ago {% if post.source_link %}<a href="{{ post.source_link }}" title="view on reddit"><i class="fa fa-comment"></i></a>{% endif %}</p>
+							<p>
+								<span id="udm{{ loop.index }}">
+									<script>$("#udm{{ loop.index }}").text(moment(moment.utc('{{ post.posted }}').toDate()).format("MMM D"));</script>
+								</span> | 
+								<a href="{{ url_for('user_profile_a', username=post.user.get().username, version='a') }}">{{ post.user.get().username }}</a> 
+								posted {{ post.posted|time_since }} ago 
+								{% if post.source_link %}
+								<a href="{{ post.source_link }}" title="view on reddit"><i class="fa fa-comment"></i></a>
+								{% endif %}
+								{% if g.user %}
+								<a href="{{ url_for('favorite', post_id=post.key.urlsafe()) }}"><i class="fa fa-heart"></i></a>
+								{% endif %}
+							</p>
 							{% include 'post_content_a.html' %}
 						</div>
 					</section>

@@ -223,6 +223,10 @@ def post_daily3(version="default"):
     elif version=="a":
         return render_template('user_panel_a.html')
 
+def favorite(post_id):
+    pass
+    
+
 def logout():
     session.pop('user', None)
     return redirect(url_for('home'))
