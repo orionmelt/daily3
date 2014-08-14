@@ -140,9 +140,12 @@ def load_user():
     g.ga_id = app.config['GA_ID']
         
 
-def home():
+def home(version="default"):
     posts = Post.query().order(-Post.posted).fetch()
-    return render_template('index.html', posts=posts)
+    if version=="default":
+        return render_template('index.html', posts=posts)
+    elif version=="a":
+        return render_template('index_a.html', posts=posts)
     
 def authorize():
     error = request.args.get('error')
@@ -173,26 +176,32 @@ def authorize():
         session['user'] = user.username
         return redirect(url_for('home'))
         
-def user_profile(username):
+def user_profile(username,version="default"):
     posts = None
     profile = User.get_by_id(username)
     if profile:
         posts = Post.query(Post.user==profile.key).order(-Post.posted).fetch()
-        return render_template('user_profile.html', profile=profile, posts=posts)
+        if version=="default":
+            return render_template('user_profile.html', profile=profile, posts=posts)
+        elif version=="a":
+            return render_template('user_profile_a.html', profile=profile, posts=posts)
     else:
         abort(404)
 
-def me():
+def me(version="default"):
     posts = None
     if g.user:
         profile = g.user
         posts = Post.query(Post.user==profile.key).order(-Post.posted).fetch()
-        return render_template('user_profile.html', profile=profile, posts=posts)
+        if version=="default":
+            return render_template('user_profile.html', profile=profile, posts=posts)
+        elif version=="a":
+            return render_template('user_profile_a.html', profile=profile, posts=posts)
     else:
         return redirect(url_for('home'))
         
       
-def post_daily3():
+def post_daily3(version="default"):
     if g.user:
         item1 = request.form['item1']
         item2 = request.form['item2']
@@ -209,7 +218,10 @@ def post_daily3():
             post.source_link = source_link
         post.put()
         g.user_post = post
-    return render_template('user_panel.html')
+    if version=="default":
+        return render_template('user_panel.html')
+    elif version=="a":
+        return render_template('user_panel_a.html')
 
 def logout():
     session.pop('user', None)
