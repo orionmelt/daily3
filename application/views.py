@@ -139,19 +139,19 @@ def load_user():
     g.user_post = user_post
     g.login_url = login_url
     g.ga_id = app.config['GA_ID']
-    if "beta/a" in request.url:
-        session['beta'] = True
-        g.beta = True
-    else:
-        session['beta'] = False
-        g.beta = False
+    logging.info(request.url)
+    logging.info(session['beta'])
         
 
 def home(version="default"):
     posts = Post.query().order(-Post.posted).fetch()
     if version=="default":
+        session['beta'] = False
+        g.beta = False
         return render_template('index.html', posts=posts)
     elif version=="a":
+        session['beta'] = True
+        g.beta = True
         if g.user:
             for post in posts:
                 post.faved = True if Favorite.query(Favorite.user==g.user.key,Favorite.post==post.key).get() else False
@@ -184,7 +184,11 @@ def authorize():
         user.refresh_token = access_info['refresh_token']
         user.put()
         session['user'] = user.username
-        return redirect(url_for('home'))
+        if session['beta']:
+            g.beta = True
+            return redirect(url_for('home_a', version='a'))
+        else:
+            return redirect(url_for('home'))
         
 def user_profile(username,version="default"):
     posts = None
