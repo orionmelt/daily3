@@ -71,6 +71,7 @@
 				<!-- Nav -->
 				<nav id="nav">
 					<ul>
+						<li class="beta"><a href="{{ url_for('home_a', version='a') }}">{% if g.beta %}Beta Mode{% else %}Try Our New Beta{% endif %}</a></li>
 						<li class="{% block nav_home %}{% endblock %}"><a href="{{ home_link }}">Home</a></li>
 						{% if g.user %}
 						<li class="{% block nav_me %}{% endblock %}"><a href="{{ me_link }}" title="See all your Daily3s"><i class="fa fa-reddit fa-lg"></i> {{ g.user.username }}</a></li>

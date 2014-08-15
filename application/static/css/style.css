@@ -419,7 +419,18 @@
 		background:#C4192D;
 		padding:0.5em;
 		color:#fff;
-		border:1px dashed #fff;
+		border:1px solid #ee7785;
+	}
+	
+	.beta
+	{
+		background:#C4192D;
+		margin-left:0 !important;
+	}
+	
+	.beta a
+	{
+		margin-left:0 !important;
 	}
 	
 	.design_ver a
