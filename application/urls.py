@@ -44,6 +44,8 @@ app.add_url_rule('/logout/beta/<version>', 'logout_a', view_func=views.logout)
 app.add_url_rule('/favorite/<post_id>', 'favorite', view_func=views.favorite)
 app.add_url_rule('/favorites', 'favorites', view_func=views.favorites)
 
+app.add_url_rule('/beta-off', 'beta_off', view_func=views.beta_off)
+
 
 # Say hello
 app.add_url_rule('/hello/<username>', 'say_hello', view_func=views.say_hello)

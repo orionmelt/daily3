@@ -74,6 +74,9 @@
 						<li class="{% block nav_home %}{% endblock %}"><a href="{{ home_link }}">Home</a></li>
 						{% if g.user %}
 						<li class="{% block nav_me %}{% endblock %}"><a href="{{ me_link }}" title="See all your Daily3s"><i class="fa fa-reddit fa-lg"></i> {{ g.user.username }}</a></li>
+						{% if g.beta %}
+						<li class="{% block nav_fav %}{% endblock %}"><a href="{{ url_for('favorites') }}" title="See all your favorites">Favorites</a></li>
+						{% endif %}
 						<li><a href="{{ logout_link }}">Logout</a></li>
 						{% endif %}
 					</ul>

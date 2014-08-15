@@ -3,7 +3,16 @@
 						<div id="user_post_a">
 							{% if g.user_post %}
 							{% set post = g.user_post %}
-							{% include 'post_content.html' %}
+							<header>
+								<h4>My Daily3</h4><span class="counter"><span class="month" id="udmu"><script>$("#udmu").text(moment(moment.utc('{{ post.posted }}').toDate()).format("MMM"));</script></span>
+								<span class="day" id="uddu"><script>$("#uddu").text(moment(moment.utc('{{ post.posted }}').toDate()).format("D"));</script></span>
+								<span class="source_link">
+									{% if post.source_link %}<a href="{{ post.source_link }}" title="view on reddit"><i class="fa fa-comment"></i></a>{% endif %} 
+								</span>
+								<noscript><span class="month">{{ post.posted|format_month }}</span><span class="day">{{ post.posted|format_day }}</span></noscript></span>
+							</header>
+							{# include 'post_content.html' #}
+							{% include 'post_content_a.html' %}
 							{% else %}
 							<header>
 								<h4>My Daily3</h4><span class="counter"><span id="ccx">0</span> / 140</span>
@@ -68,7 +77,4 @@
 						    {% endfor %}
 							{% endif %}
 						{% endwith %}
-						<div class="see_faves">
-							<h2><a href="{{ url_for('favorites') }}">My favorites</a></h2>
-						</div>
 					</section>

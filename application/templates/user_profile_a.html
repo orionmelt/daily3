@@ -20,7 +20,7 @@
 			<script src="/static/js/jquery.masonry.ordered.js"></script>
 			<div class="row">
 				<section class="12u">
-					<h2 class="design_ver">You're in beta mode. <a href="{{ url_for('user_profile_a', username=profile.username, version='default') }}">See original page.</a></h2>
+					<h2 class="design_ver">You're in beta mode. <a href="{{ url_for('user_profile_a', username=profile.username, version='default') }}">See original page.</a> (<a href="{{ url_for('beta_off') }}">Or turn off beta.</a>)</h2>
 				</section>
 			</div>
 
@@ -34,7 +34,7 @@
 						<section class="12u">
 							<div id="user_head_a">
 								<header>
-									<h2><a href="/u/{{ profile.username }}">{{ profile.username }}</a></h2>
+									<h2>{{ profile.username }}</h2>
 								</header>
 								<p><a href="http://www.reddit.com/user/{{ profile.username }}">redditor for {{ profile.created_reddit|time_since }}</a></p>
 							</div>
@@ -67,11 +67,13 @@
 		</div>
 		<!-- /Main -->			
         <script>
+		$( document ).ready(function() {
             $( ".fav_link" ).click(function(e) {
 				e.preventDefault();
 				$(this).toggleClass("faved");
 				$.get(this.href);
 			});
+		});
         </script>
 		
 		

@@ -150,8 +150,6 @@ def load_user():
 def home(version="default"):
     posts = Post.query().order(-Post.posted).fetch()
     if version=="default":
-        session['beta'] = False
-        g.beta = False
         return render_template('index.html', posts=posts)
     elif version=="a":
         session['beta'] = True
@@ -280,7 +278,7 @@ def favorite(post_id):
                 post=ndb.Key(urlsafe=post_id)
         )
         f.put()
-        return 'Faved!'        
+        return 'Faved!'
 
 def logout(version="default"):
     session.pop('user', None)
@@ -288,6 +286,10 @@ def logout(version="default"):
         return redirect(url_for('home'))
     elif version=="a":
         return redirect(url_for('home_a', version='a'))
+
+def beta_off():
+    session.pop('beta', None)
+    return redirect(url_for('home'))
     
 def say_hello(username):
     """Contrived example to demonstrate Flask's url routing capabilities"""

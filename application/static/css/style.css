@@ -504,10 +504,11 @@
 		vertical-align:middle;
 	}
 	
-	#user_post_a, .see_faves
+	#user_post_a
 	{
 		background:#9b3;
 		padding:1.5em;
+		border:1px solid #6d8624;
 		border-bottom:2px solid #6d8624;
 	}
 	
@@ -524,6 +525,7 @@
 		text-align:right;
 		display:inline-block;
 		font-size:0.8em;
+		vertical-align:baseline;
 	}
 	
 	#user_post_a p
@@ -541,12 +543,7 @@
 	{
 		color:#000;
 	}
-	
-	.see_faves 
-	{
-		margin-top:2em;
-	}
-	
+		
 	.faved
 	{
 		color:#C4192D;

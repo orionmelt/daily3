@@ -9,7 +9,7 @@
 			<script src="/static/js/jquery.masonry.ordered.js"></script>
 			<div class="row">
 				<section class="12u">
-					<h2 class="design_ver">You're in beta mode. <a href="{{ url_for('home_a', version='default') }}">See original page.</a></h2>
+					<h2 class="design_ver">You're in beta mode. <a href="{{ url_for('home_a', version='default') }}">See original page.</a> (<a href="{{ url_for('beta_off') }}">Or turn off beta.</a>)</h2>
 				</section>
 			</div>
 			<div id="main_row" class="row">
@@ -43,6 +43,7 @@
 		</div>
 		<!-- /Main -->			
 		<script>
+		$( document ).ready(function() {
 			$( "#main_row" ).masonry({
 				transitionDuration: 0,
 				layoutPriorities: {
@@ -55,5 +56,6 @@
 				$(this).toggleClass("faved");
 				$.get(this.href);
 			});
+		});
 		</script>
 {% endblock %}

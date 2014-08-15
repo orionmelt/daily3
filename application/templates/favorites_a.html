@@ -1,7 +1,7 @@
 {% extends "daily3_base.html" %}
 {% block title %} - My favorites{% endblock %}
 
-{% block nav_me %}
+{% block nav_fav %}
 active
 {% endblock %}
 
@@ -13,7 +13,7 @@ active
 			<script src="/static/js/jquery.masonry.ordered.js"></script>
 			<div class="row">
 				<section class="12u">
-					<h2 class="design_ver">You're in beta mode. This page is available only in beta.</h2>
+					<h2 class="design_ver">You're in beta mode. This page is available only in beta. (<a href="{{ url_for('beta_off') }}">Turn off beta.</a>)</h2>
 				</section>
 			</div>
 
@@ -65,6 +65,7 @@ active
 		</div>
 		<!-- /Main -->			
         <script>
+		$( document ).ready(function() {
 			$( "#main_row" ).masonry({
 				transitionDuration: 0,
 				layoutPriorities: {
@@ -77,6 +78,7 @@ active
 				$(this).toggleClass("faved");
 				$.get(this.href);
 			});
+		});
         </script>
 		
 		
