@@ -1,0 +1,77 @@
+{% extends "daily3_base.html" %}
+{% block title %} - My favorites{% endblock %}
+
+{% block nav_me %}
+active
+{% endblock %}
+
+{% set start = 0 %}
+{% block content %}
+		<!-- Main -->
+		<div id="main" class="container">
+			<script src="/static/js/masonry.pkgd.min.js"></script>
+			<script src="/static/js/jquery.masonry.ordered.js"></script>
+			<div class="row">
+				<section class="12u">
+					<h2 class="design_ver">You're in beta mode. <a href="{{ url_for('user_profile_a', username=profile.username, version='default') }}">See original page.</a></h2>
+				</section>
+			</div>
+
+			<div class="row">
+				<section class="4u">
+				{% include 'user_panel_a.html' %}
+				</section>
+				
+				<section class="8u">
+					<div class="row">
+						<section class="12u">
+							<div id="user_head_a">
+								<header>
+									<h2>my favorites</h2>
+								</header>
+							</div>
+						</section>
+					</div>
+					<div  id="main_row" class="row">
+						{% for post in posts %}
+						<section class="6u">
+							<div class="post {{ loop.cycle('c1','c2', 'c3', 'c4', 'c5') }}">
+								<p>
+									<span id="udm{{ loop.index }}">
+										<script>$("#udm{{ loop.index }}").text(moment(moment.utc('{{ post.posted }}').toDate()).format("MMM D"));</script>
+									</span> | 
+									<a href="{{ url_for('user_profile_a', username=post.user.get().username, version='a') }}">{{ post.user.get().username }}</a> 
+									posted {{ post.posted|time_since }} ago 
+									{% if post.source_link %}
+									<a href="{{ post.source_link }}" title="view on reddit"><i class="fa fa-comment"></i></a>
+									{% endif %}
+									{% if g.user %}
+									<a class="fav_link {% if post.faved %}faved{% endif %}" href="{{ url_for('favorite', post_id=post.key.urlsafe()) }}"><i class="fa fa-heart"></i></a>
+									{% endif %}
+								</p>
+								{% include 'post_content_a.html' %}
+							</div>
+						</section>
+						{% endfor %}
+					</div>
+				</section>				
+			</div>
+		</div>
+		<!-- /Main -->			
+        <script>
+			$( "#main_row" ).masonry({
+				transitionDuration: 0,
+				layoutPriorities: {
+					shelfOrder: 1000
+				}
+			});
+			
+            $( ".fav_link" ).click(function(e) {
+				e.preventDefault();
+				$(this).toggleClass("faved");
+				$.get(this.href);
+			});
+        </script>
+		
+		
+{% endblock %}
