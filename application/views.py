@@ -139,8 +139,8 @@ def load_user():
     g.user_post = user_post
     g.login_url = login_url
     g.ga_id = app.config['GA_ID']
-    logging.info(request.url)
-    logging.info(session['beta'])
+    #logging.info(request.url)
+    #logging.info(session['beta'])
         
 
 def home(version="default"):
@@ -171,7 +171,14 @@ def authorize():
         return redirect(url_for('home'))
     else:
         reddit = get_reddit()
-        access_info = reddit.get_access_information(code)
+        try:
+            access_info = reddit.get_access_information(code)
+        except:
+            logging.error("E201: Unknown exception while authenticating user %s" % g.user.username)
+            logging.error(sys.exc_info())
+            flash("Unknown error authenticating with reddit. Please try after some time.", 'error')
+            return redirect(url_for('home'))
+            
         praw_user = reddit.get_me()
         user = User.get_by_id(praw_user.name)
         if not user:
@@ -205,6 +212,19 @@ def user_profile(username,version="default"):
             return render_template('user_profile_a.html', profile=profile, posts=posts)
     else:
         abort(404)
+        
+def favorites(version="default"):
+    posts=None
+    if g.user:
+        profie = g.user
+        posts=ndb.get_multi(Favorite.query(Favorite.user==g.user.key).map(lambda f: f.post))
+        for post in posts:
+            post.faved = True
+        return render_template('favorite_a.html', posts=posts)
+    else:
+        return redirect(url_for('home'))
+            
+        
 
 def me(version="default"):
     posts = None
@@ -214,6 +234,9 @@ def me(version="default"):
         if version=="default":
             return render_template('user_profile.html', profile=profile, posts=posts)
         elif version=="a":
+            if g.user:
+                for post in posts:
+                    post.faved = True if Favorite.query(Favorite.user==g.user.key,Favorite.post==post.key).get() else False
             return render_template('user_profile_a.html', profile=profile, posts=posts)
     else:
         return redirect(url_for('home'))

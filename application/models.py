@@ -48,20 +48,6 @@ class Post(ndb.Model):
     source_link = ndb.StringProperty(indexed=False)
     
 class Favorite(ndb.Model):
-    """Models an user marking a Daily3 post as a favorite. 
-
-    Attributes:
-        user        - User who marked post as favorite  
-        post        - The Daily3 post that was marked as favorite
-        favorited   - DateTime when the post was favorited 
-    """
-
-    user = ndb.KeyProperty(kind="User")
-    post = ndb.KeyProperty(kind="Post")
-    favorited = ndb.DateTimeProperty(auto_now_add=True)
-
-
-class Favorite(ndb.Model):
     """Models a user marking a Daily3 post as a favorite. 
 
     Attributes:
