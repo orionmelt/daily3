@@ -13,7 +13,7 @@ active
 			<script src="/static/js/jquery.masonry.ordered.js"></script>
 			<div class="row">
 				<section class="12u">
-					<h2 class="design_ver">You're in beta mode. <a href="{{ url_for('user_profile_a', username=profile.username, version='default') }}">See original page.</a></h2>
+					<h2 class="design_ver">You're in beta mode. This page is available only in beta.</h2>
 				</section>
 			</div>
 
@@ -32,6 +32,7 @@ active
 							</div>
 						</section>
 					</div>
+					{% if posts %}
 					<div  id="main_row" class="row">
 						{% for post in posts %}
 						<section class="6u">
@@ -54,6 +55,11 @@ active
 						</section>
 						{% endfor %}
 					</div>
+					{% else %}
+					<div  id="main_row" class="row">
+						<h4>No favorites yet.</h4>
+					</div>
+					{% endif %}
 				</section>				
 			</div>
 		</div>

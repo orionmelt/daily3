@@ -139,8 +139,12 @@ def load_user():
     g.user_post = user_post
     g.login_url = login_url
     g.ga_id = app.config['GA_ID']
-    #logging.info(request.url)
-    #logging.info(session['beta'])
+    
+    try:
+        if session['beta']:
+            g.beta = session['beta']
+    except KeyError:
+        pass
         
 
 def home(version="default"):
@@ -216,11 +220,10 @@ def user_profile(username,version="default"):
 def favorites(version="default"):
     posts=None
     if g.user:
-        profie = g.user
         posts=ndb.get_multi(Favorite.query(Favorite.user==g.user.key).map(lambda f: f.post))
         for post in posts:
             post.faved = True
-        return render_template('favorite_a.html', posts=posts)
+        return render_template('favorites_a.html', posts=posts)
     else:
         return redirect(url_for('home'))
             

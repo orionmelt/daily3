@@ -504,7 +504,7 @@
 		vertical-align:middle;
 	}
 	
-	#user_post_a
+	#user_post_a, .see_faves
 	{
 		background:#9b3;
 		padding:1.5em;
@@ -540,6 +540,11 @@
 	#user_post_a p a:hover
 	{
 		color:#000;
+	}
+	
+	.see_faves 
+	{
+		margin-top:2em;
 	}
 	
 	.faved

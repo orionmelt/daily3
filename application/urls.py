@@ -42,6 +42,7 @@ app.add_url_rule('/logout/beta/<version>', 'logout_a', view_func=views.logout)
 
 #Favorites
 app.add_url_rule('/favorite/<post_id>', 'favorite', view_func=views.favorite)
+app.add_url_rule('/favorites', 'favorites', view_func=views.favorites)
 
 
 # Say hello
