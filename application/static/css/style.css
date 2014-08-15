@@ -552,5 +552,10 @@
 		color:#C4192D !important;
 	}
 	
+	#user_post_a a, .post a
+	{
+		font-size:1.2em;
+	}
+	
 
 	

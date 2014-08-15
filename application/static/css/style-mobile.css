@@ -11,7 +11,7 @@
 	body,input,textarea,select
 	{
 		line-height: 1.75em;
-		font-size: 9.5pt;
+		font-size: 10pt;
 		letter-spacing: 0;
 	}
 
@@ -29,7 +29,7 @@
 	article
 	{
 		clear: both;
-		margin: 2em 0 2em 0 !important;
+		margin: 1em 0 1em 0 !important;
 	}
 
 	section > :first-child,
@@ -201,3 +201,9 @@
 	{
 		padding: 2em 1em;
 	}
+	
+	.design_ver 
+	{
+		margin-bottom:1em !important;
+	}
+	
