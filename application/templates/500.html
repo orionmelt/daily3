@@ -1,8 +1,14 @@
 {% extends "base.html" %}
-
+{% block title %} - 500{% endblock %}
 {% block content %}
-    <h1>Aw, snap</h1>
-    <p>The server encountered an unexpected error.</p>
-    <p>Please try again later.</p>
+		<!-- Main -->
+		<div id="main" class="container">
+			<div class="row">
+				<section class="12u">
+						<p class="page_message"><i class="fa fa-exclamation-triangle"></i> Uh oh, server error 500!</p>
+						<p class="page_message_byline">We are looking into it, we promise. <a href="/">Start over from home?</a></p>
+				</section>
+			</div>
+		</div>
+		<!-- /Main -->			
 {% endblock %}
-
