@@ -6,7 +6,6 @@ from flask import Flask
 import os
 from flask_debugtoolbar import DebugToolbarExtension
 from werkzeug.debug import DebuggedApplication
-from jinja_filters import format_date, time_since, format_month, format_day
 
 app = Flask('application')
 
@@ -37,6 +36,7 @@ elif os.getenv('FLASK_CONF') == 'TEST':
 else:
     app.config.from_object('application.settings.Production')
 
+from jinja_filters import format_date, time_since, format_month, format_day
 # Enable jinja2 loop controls extension
 app.jinja_env.add_extension('jinja2.ext.loopcontrols')
 

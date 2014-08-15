@@ -9,5 +9,5 @@
 *.kpf
 venv
 
-# Don't store secret keys in version control
-secret_keys.py
+# Don't store secret keys and OS local settings in version control
+local_settings.py

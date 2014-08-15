@@ -10,7 +10,7 @@ Important: Place your keys in the secret_keys.py module,
 
 import os
 
-from secret_keys import *
+from local_settings import *
 
 class Config(object):
     # Set secret keys for CSRF protection
@@ -18,6 +18,8 @@ class Config(object):
     CSRF_SESSION_KEY = SESSION_KEY
     # Flask-Cache settings
     CACHE_TYPE = 'gaememcached'
+    FP_DATE_FORMAT = OS_DATE_FORMAT
+    
 
 class Development(Config):
     DEBUG = True

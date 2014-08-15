@@ -1,7 +1,8 @@
 from datetime import datetime
+from application import app
 
 #Change %e to %d if running on Windows
-def format_date(value, format='%b %e'):
+def format_date(value, format=app.config['FP_DATE_FORMAT']):
     return value.strftime(format)
 
 def format_month(value, format='%b'):
