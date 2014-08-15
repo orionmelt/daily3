@@ -193,10 +193,13 @@ def authorize():
         user.refresh_token = access_info['refresh_token']
         user.put()
         session['user'] = user.username
-        if session['beta']:
-            g.beta = True
-            return redirect(url_for('home_a', version='a'))
-        else:
+        try: 
+            if session['beta']:
+                g.beta = True
+                return redirect(url_for('home_a', version='a'))
+            else:
+                return redirect(url_for('home'))
+        except:
             return redirect(url_for('home'))
         
 def user_profile(username,version="default"):

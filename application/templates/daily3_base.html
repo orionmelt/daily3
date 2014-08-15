@@ -48,7 +48,7 @@
 		</script>
 		{% endif %}
 	</head>
-	<body>
+	<body class="no-touch">
 
 		<!-- Header -->
 		<div id="header">
@@ -85,6 +85,14 @@
 
 			</div>
 		</div>
+        <script>
+		$( document ).ready(function() {
+			
+            $( 'body' ).bind('touchstart', function() {
+				$(this).removeClass("no-touch");
+			});
+		});
+        </script>
 		<!-- Header -->
 		{% block content %}
 		{% endblock %}

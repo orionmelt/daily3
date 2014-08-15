@@ -127,12 +127,12 @@
 		margin-left:0.5em;
 	}
 	
-	a:hover
+	.no-touch a:hover
 	{
 		color:#666;
 	}
 	
-	.post p a:hover, #user_post p a:hover
+	.notouch .post p a:hover, #user_post p a:hover
 	{
 		color:#000;;
 	}
@@ -550,7 +550,7 @@
 		margin-left:0.5em;
 	}
 	
-	#user_post_a p a:hover
+	.no-touch #user_post_a p a:hover
 	{
 		color:#000;
 	}
@@ -560,7 +560,7 @@
 		color:#C4192D;
 	}
 	
-	a.fav_link:hover
+	.no-touch a.fav_link:hover
 	{
 		color:#C4192D !important;
 	}
