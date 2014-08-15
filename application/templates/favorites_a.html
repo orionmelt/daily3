@@ -1,4 +1,4 @@
-{% extends "daily3_base.html" %}
+{% extends "base.html" %}
 {% block title %} - My favorites{% endblock %}
 
 {% block nav_fav %}
@@ -11,15 +11,12 @@ active
 		<div id="main" class="container">
 			<script src="/static/js/masonry.pkgd.min.js"></script>
 			<script src="/static/js/jquery.masonry.ordered.js"></script>
-			<div class="row">
-				<section class="12u">
-					<h2 class="design_ver">You're in beta mode. This page is available only in beta. | <a href="{{ url_for('beta_off') }}">Turn off beta.</a> | <a href="http://www.reddit.com/r/daily3me/comments/2dmabu/welcome_to_the_daily3me_support_subreddit_beta/">Give feedback.</a></h2>
-				</section>
-			</div>
+			
+			{% include 'includes/beta_panel.html' %}
 
 			<div class="row">
 				<section class="4u">
-				{% include 'user_panel_a.html' %}
+				{% include 'includes/user_panel_a.html' %}
 				</section>
 				
 				<section class="8u">
@@ -41,7 +38,7 @@ active
 									<span id="udm{{ loop.index }}">
 										<script>$("#udm{{ loop.index }}").text(moment(moment.utc('{{ post.posted }}').toDate()).format("MMM D"));</script>
 									</span> | 
-									<a href="{{ url_for('user_profile_a', username=post.user.get().username, version='a') }}">{{ post.user.get().username }}</a> 
+									<a href="{{ url_for('user_profile', username=post.user.get().username) }}">{{ post.user.get().username }}</a> 
 									posted {{ post.posted|time_since }} ago 
 									{% if post.source_link %}
 									<a href="{{ post.source_link }}" title="view on reddit"><i class="fa fa-comment"></i></a>
@@ -50,7 +47,7 @@ active
 									<a class="fav_link {% if post.faved %}faved{% endif %}" href="{{ url_for('favorite', post_id=post.key.urlsafe()) }}"><i class="fa fa-heart"></i></a>
 									{% endif %}
 								</p>
-								{% include 'post_content_a.html' %}
+								{% include 'includes/post_panel_a.html' %}
 							</div>
 						</section>
 						{% endfor %}

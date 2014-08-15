@@ -1,4 +1,4 @@
-{% extends "daily3_base.html" %}
+{% extends "base.html" %}
 
 {% block title %}
 {% if g.user.username == profile.username %}
@@ -18,15 +18,12 @@
 		<div id="main" class="container">
 			<script src="/static/js/masonry.pkgd.min.js"></script>
 			<script src="/static/js/jquery.masonry.ordered.js"></script>
-			<div class="row">
-				<section class="12u">
-					<h2 class="design_ver">You're in beta mode. <a href="{{ url_for('user_profile_a', username=profile.username, version='default') }}">See original page.</a> | <a href="{{ url_for('beta_off') }}">Turn off beta.</a> | <a href="http://www.reddit.com/r/daily3me/comments/2dmabu/welcome_to_the_daily3me_support_subreddit_beta/">Give feedback.</a></h2>
-				</section>
-			</div>
-
+			
+			{% include 'includes/beta_panel.html' %}
+			
 			<div class="row">
 				<section class="4u">
-				{% include 'user_panel_a.html' %}
+				{% include 'includes/user_panel_a.html' %}
 				</section>
 				
 				<section class="8u">
@@ -53,7 +50,7 @@
 									</span>
 									<noscript><span class="month">{{ post.posted|format_month }}</span><span class="day">{{ post.posted|format_day }}</span></noscript>
 								</div>
-								{% include 'post_content_a.html' %}
+								{% include 'includes/post_panel_a.html' %}
 							</div>
 						</section>
 						{% if loop.index is divisibleby 2 %}

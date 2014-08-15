@@ -53,38 +53,30 @@
 		<!-- Header -->
 		<div id="header">
 			<div class="container">
-				{% if g.beta %}
-				{% set home_link = url_for('home_a', version='a') %}
-				{% set me_link = url_for('me_a', version='a') %}
-				{% set logout_link = url_for('logout_a', version='a') %}
-				{% else %}
-				{% set home_link = url_for('home') %}
-				{% set me_link = url_for('me') %}
-				{% set logout_link = url_for('logout') %}
-				{% endif %}
-				
+								
 				<!-- Logo -->
 				<div id="logo">
-					<h1><a href="{{ home_link }}"><i class="fa fa-list-ul"></i> DAILY3.me</a></h1>
+					<h1><a href="{{ url_for('home') }}"><i class="fa fa-list-ul"></i> DAILY3.me</a></h1>
 				</div>
 				
 				<!-- Nav -->
 				<nav id="nav">
 					<ul>
-						<li class="beta"><a href="{{ url_for('home_a', version='a') }}">{% if g.beta %}Beta Mode{% else %}Try Our New Beta{% endif %}</a></li>
-						<li class="{% block nav_home %}{% endblock %}"><a href="{{ home_link }}">Home</a></li>
+						<li class="beta"><a href="{{ url_for('beta_on') }}">{% if g.beta %}Beta Mode{% else %}Try Our New Beta{% endif %}</a></li>
+						<li class="{% block nav_home %}{% endblock %}"><a href="{{ url_for('home') }}">Home</a></li>
 						{% if g.user %}
-						<li class="{% block nav_me %}{% endblock %}"><a href="{{ me_link }}" title="See all your Daily3s"><i class="fa fa-reddit fa-lg"></i> {{ g.user.username }}</a></li>
-						{% if g.beta %}
-						<li class="{% block nav_fav %}{% endblock %}"><a href="{{ url_for('favorites') }}" title="See all your favorites">Favorites</a></li>
-						{% endif %}
-						<li><a href="{{ logout_link }}">Logout</a></li>
+							<li class="{% block nav_me %}{% endblock %}"><a href="{{ url_for('me') }}" title="See all your Daily3s"><i class="fa fa-reddit fa-lg"></i> {{ g.user.username }}</a></li>
+							{% if g.beta %}
+								<li class="{% block nav_fav %}{% endblock %}"><a href="{{ url_for('favorites') }}" title="See all your favorites">Favorites</a></li>
+							{% endif %}
+							<li><a href="{{ url_for('logout') }}">Logout</a></li>
 						{% endif %}
 					</ul>
 				</nav>
 
 			</div>
 		</div>
+		
         <script>
 		$( document ).ready(function() {
 			
@@ -94,8 +86,10 @@
 		});
         </script>
 		<!-- Header -->
+		
 		{% block content %}
 		{% endblock %}
+		
 		<div id="footer">
 			<div class="container">
 				Daily3 was born from <a href="http://reddit.com/2chg5w">this post</a> on <a href="http://reddit.com/r/LifeProTips">r/LifeProTips</a>.

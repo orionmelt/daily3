@@ -1,4 +1,4 @@
-{% extends "daily3_base.html" %}
+{% extends "base.html" %}
 {% block title %} - Home{% endblock %}
 {% block nav_home %}active{% endblock %}
 {% set start = 0 %}
@@ -6,25 +6,25 @@
 		<!-- Main -->
 		<div id="main" class="container">
 			<div class="row">
-				{% include 'user_panel.html' %}
+				{% include 'includes/user_panel.html' %}
 				{% if g.user %}
 				{% for post in posts[:2] %}
 				<section class="4u">
 					<div class="post">
-						{% include 'post_content.html' %}
+						{% include 'includes/post_panel.html' %}
 					</div>
 				</section>
 				{% endfor %}
 				{% set start = 2 %}
 				{% else %}
-				{% include 'includes/blurb.html' %}
+				{% include 'includes/blurb_panel.html' %}
 				{% endif %}
 			</div>
 			<div class="row">
 				{% for post in posts[start:] %}
 				<section class="4u">
 					<div class="post">
-						{% include 'post_content.html' %}
+						{% include 'includes/post_panel.html' %}
 					</div>
 				</section>
 				{% if loop.index is divisibleby 3 %}

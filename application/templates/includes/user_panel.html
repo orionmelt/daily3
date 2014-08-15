@@ -3,13 +3,13 @@
 						<div id="user_post">
 							{% if g.user_post %}
 							{% set post = g.user_post %}
-							{% include 'post_content.html' %}
+							{% include 'includes/post_panel.html' %}
 							{% else %}
 							<header>
 								<h4>My Daily3</h4>
 							</header>
 							<div id="post_daily3">
-								<form id="post_form" method="post" action="/post_daily3">
+								<form id="post_form" method="post" action="{{ url_for('post_daily3')}}">
 									<textarea id="item1" name="item1" maxlength="140"></textarea>
 									<textarea id="item2" name="item2" maxlength="140"></textarea>
 									<textarea id="item3" name="item3" maxlength="140"></textarea>
