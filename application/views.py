@@ -146,7 +146,10 @@ def load_user():
 
 def home():
     template = 'index'
-    posts = Post.query().order(-Post.posted).fetch()
+    posts = memcache.get('posts')
+    if not posts:
+        posts = Post.query().order(-Post.posted).fetch()
+        memcache.add('posts', posts)
     if g.user:
         favorites = Favorite.query(Favorite.user==g.user.key).map(lambda f: f.post)
         for post in posts:
@@ -261,6 +264,7 @@ def post_daily3():
             post.source_link = source_link
         post.put()
         g.user_post = post
+        memcache.delete('posts')
     if g.beta:
         template += BETA_SUFFIX
     return render_template('%s.html' % template)
