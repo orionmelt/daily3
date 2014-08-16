@@ -148,8 +148,9 @@ def home():
     template = 'index'
     posts = Post.query().order(-Post.posted).fetch()
     if g.user:
+        favorites = Favorite.query(Favorite.user==g.user.key).map(lambda f: f.post)
         for post in posts:
-            post.faved = True if Favorite.query(Favorite.user==g.user.key,Favorite.post==post.key).get() else False
+            post.faved = post.key in favorites
     if g.beta:
         template += BETA_SUFFIX
     return render_template('%s.html' % template, posts=posts)
