@@ -23,8 +23,8 @@ inbound_services:
 
 handlers:
 - url: /favicon.ico
-  static_files: application/static/img/favicon.ico
-  upload: application/static/img/favicon.ico
+  static_files: application/static/icons/favicon.ico
+  upload: application/static/icons/favicon.ico
 
 - url: /robots.txt
   static_files: application/static/robots.txt
