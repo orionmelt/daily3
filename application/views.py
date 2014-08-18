@@ -155,6 +155,14 @@ def home():
         template += BETA_SUFFIX
     return render_template('%s.html' % template, posts=posts)
 
+def bootstrap():
+    posts = Post.query().order(-Post.posted).fetch()
+    if g.user:
+        favorites = Favorite.query(Favorite.user==g.user.key).map(lambda f: f.post)
+        for post in posts:
+            post.faved = post.key in favorites
+    return render_template('base_b.html', posts=posts)
+
 
 def authorize():
     error = request.args.get('error')

@@ -43,6 +43,9 @@ app.add_url_rule('/logout', 'logout', view_func=views.logout)
 app.add_url_rule('/beta', 'beta_on', view_func=views.beta_on)
 app.add_url_rule('/beta-off', 'beta_off', view_func=views.beta_off)
 
+# Bootstrap testing
+app.add_url_rule('/bootstrap', 'bootstrap', view_func=views.bootstrap)
+
 ## Error handlers
 # Handle 404 errors
 @app.errorhandler(404)
