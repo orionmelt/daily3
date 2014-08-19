@@ -8,6 +8,7 @@ from google.appengine.api import memcache
 from google.appengine.ext import ndb
 
 from flask import request, render_template, flash, url_for, redirect, session, g, abort
+from itsdangerous import URLSafeSerializer
 #TODO - flask_cache
 
 from application import app
@@ -28,7 +29,7 @@ BETA_SUFFIX = '_a'
 def get_reddit():
     reddit = memcache.get('reddit')
     if not reddit:
-        reddit = praw.Reddit('Daily3.me by u/orionmelt ver 0.2.')
+        reddit = praw.Reddit('Daily3.me by u/orionmelt ver 0.3.')
         reddit.set_oauth_app_info(app.config['CLIENT_ID'], app.config['CLIENT_SECRET'], app.config['REDIRECT_URI'])
         memcache.add('reddit',reddit)
     return reddit
@@ -113,16 +114,30 @@ def post_to_thread(post):
 @app.before_request
 def load_user():
     """Load common items required for every request."""
+    u = None
+    b = None
     user = None
     user_post = None
     login_url = None
     
-    try:
-        if session['user']:
-            logging.debug("@before_request: session['user']=%s" % session['user'])
-            user = User.get_by_id(session['user'])
-    except KeyError:
-        pass
+    session_u = session.get('user',None)
+    signature, cookie_u = URLSafeSerializer(app.config['SECRET_KEY']).loads_unsafe(request.cookies.get('u',None)) \
+                          if not session_u and request.cookies.get('u',None) else (False, None)
+    
+    u = session_u or cookie_u
+    b = session.get('beta',False) or request.cookies.get('b',False)
+    
+    if session.get('logout',None):
+        session['user'] = None
+        u = None
+        
+    if session.get('beta_off',None):
+        session['beta'] = None
+        b = None
+        
+    # By now, we should have username from either session or cookie; if not, user's not logged in.
+    if u:
+        user = User.get_by_id(u)
     
     if user:
         try:
@@ -133,19 +148,35 @@ def load_user():
         logging.debug("@before_request: no session['user']")
         reddit = get_reddit()
         login_url = reddit.get_authorize_url(str(uuid4()),['identity','submit'],refreshable=True)
-
+    
+    g.u = u
     g.user = user
     g.user_post = user_post
     g.login_url = login_url
     
     g.ga_id = app.config['GA_ID']
-    g.beta = False
-    try:
-        if session['beta']:
-            g.beta = session['beta']
-    except KeyError:
-        pass
-
+    g.beta = b
+    
+        
+@app.after_request
+def set_cookies(response):
+    u_expires = 2678400
+    b_expires = 2678400
+    
+    if session.get('logout',None):
+        session['logout'] = None
+        u_expires = 0
+    
+    if session.get('beta_off',None):
+        session['beta_off'] = None
+        b_expires = 0
+    
+    if g.u:
+        response.set_cookie('u',URLSafeSerializer(app.config['SECRET_KEY']).dumps(g.u),u_expires)
+    if g.beta:
+        response.set_cookie('b',g.beta,b_expires)
+        
+    return response
 
 def home():
     template = 'index'
@@ -192,16 +223,10 @@ def authorize():
             session['user'] = user.username
             logging.debug("@authorize: session['user']=%s" % session['user'])
         except:
-            logging.error("E201: Unknown exception while authenticating user %s" % g.user.username)
+            logging.error("E201: Unknown exception while authenticating")
             logging.error(sys.exc_info())
             flash(UNKNOWN_LOGIN_ERROR_TEXT, 'error')
             return redirect(url_for('home'))            
-
-        try: 
-            if session['beta']:
-                g.beta = True
-        except KeyError:
-            pass
         
         return redirect(url_for('home'))
 
@@ -292,6 +317,7 @@ def favorite(post_id):
 
 def logout():
     session.pop('user', None)
+    session['logout'] = True
     return redirect(url_for('home'))
 
 
@@ -303,6 +329,7 @@ def beta_on():
 
 def beta_off():
     session.pop('beta', None)
+    session['beta_off'] = True
     return redirect(url_for('home'))
 
 
