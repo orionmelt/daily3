@@ -45,6 +45,14 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <!-- jQuery Version 1.11.1 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	
+	<script src="/static/js/moment.min.js"></script>
+
 </head>
 
 <body>
@@ -60,12 +68,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">DAILY3.me</a>
+                <a class="navbar-brand" href="#"><i class="fa fa-list-ul"></i> DAILY3.me</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-right" id="daily3-navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li>
+                    <li class="active">
                         <a href="#">Home</a>
                     </li>
                     <li>
@@ -96,175 +104,43 @@
 		-->
         <!-- /.row -->
 
+        <hr>
+
         <!-- Posts Row -->
-        <div id="posts_row" class="row">
-			
-            <div class="col-md-4">
-				<div class="post-item">
-					<p>
-						<span id="udm1">Aug 16</span> | 
-						<a href="/u/orionmelt">orionmelt</a> posted 13 minutes ago 
-						<a href="http://www.reddit.com/r/mydaily3_sandbox/comments/2dok2h/mydaily3_saturday_august_16_2014/cjs2wla" title="view on reddit"><i class="fa fa-comment"></i></a>
-						<a class="fav " href="/favorite/ag9kZXZ-ZGFpbHkzZmxhc2tyEQsSBFBvc3QYgICAgIDCrAoM"><i class="fa fa-heart"></i></a>
-					</p>
-					<ul>
-						<li>Failed miserably at talking to Sky customer service</li>
-						<li>Worked up the courage to watch a playthrough of PT</li>
-						<li>Had home-made pulled pork burgers</li>
-					</ul>
-				</div>
+
+        <div class="row">
+        	{% include 'includes/user_panel_b.html' %}
+        	{% set post_row='r1' %}
+        	{% for post in posts[:2] %}
+        	{% set loop_index = loop.index %}
+        	<div class="col-md-4">
+				<div class="post-item {{ loop.cycle('c1','c2') }}">
+        		{% include 'includes/post_panel_b.html' %}
+        		</div>
             </div>
-            <div class="col-md-4">
-				<div class="post-item">
-					<p>
-						<span id="udm1">Aug 16</span> | 
-						<a href="/u/orionmelt">orionmelt</a> posted 13 minutes ago 
-						<a href="http://www.reddit.com/r/mydaily3_sandbox/comments/2dok2h/mydaily3_saturday_august_16_2014/cjs2wla" title="view on reddit"><i class="fa fa-comment"></i></a>
-						<a class="fav " href="/favorite/ag9kZXZ-ZGFpbHkzZmxhc2tyEQsSBFBvc3QYgICAgIDCrAoM"><i class="fa fa-heart"></i></a>
-					</p>
-					<ul>
-												<li>Finally got some money to spend since summer started.</li>
-												<li>Had a nice lunch date with Benjamin and bought Little Big Planet 2.</li>
-												<li>Had some froyo and late night Fuego tacos. Feels good to have cash again.</li>
-											</ul>
-				</div>
+        	{% endfor %}
+        </div>
+        <div class="row">
+        	{% set post_row='rr' %}
+        	{% for post in posts[2:] %}
+        	{% set loop_index = loop.index %}
+        	<div class="col-md-4">
+				<div class="post-item {{ loop.cycle('c3','c4','c5','c1','c2') }}">
+        		{% include 'includes/post_panel_b.html' %}
+        		</div>
             </div>
-            <div class="col-md-4">
-				<div class="post-item">
-					<p>
-						<span id="udm1">Aug 16</span> | 
-						<a href="/u/orionmelt">orionmelt</a> posted 13 minutes ago 
-						<a href="http://www.reddit.com/r/mydaily3_sandbox/comments/2dok2h/mydaily3_saturday_august_16_2014/cjs2wla" title="view on reddit"><i class="fa fa-comment"></i></a>
-						<a class="fav " href="/favorite/ag9kZXZ-ZGFpbHkzZmxhc2tyEQsSBFBvc3QYgICAgIDCrAoM"><i class="fa fa-heart"></i></a>
-					</p>
-					<ul>
-												<li>Woke up late and started doing my online CA guard card classes.</li>
-												<li>Got my first real haircut in four years. My hair's still too short to do much of anything besides a fade/combover though.</li>
-												<li>The front derailleur on my bike stopped working. I really hope it's an easy and cheap fix since I need my bike to be usable for work.</li>
-											</ul>
-					
-				</div>
-            </div>
-            <div class="col-md-4">
-				<div class="post-item">
-					<p>
-						<span id="udm1">Aug 16</span> | 
-						<a href="/u/orionmelt">orionmelt</a> posted 13 minutes ago 
-						<a href="http://www.reddit.com/r/mydaily3_sandbox/comments/2dok2h/mydaily3_saturday_august_16_2014/cjs2wla" title="view on reddit"><i class="fa fa-comment"></i></a>
-						<a class="fav " href="/favorite/ag9kZXZ-ZGFpbHkzZmxhc2tyEQsSBFBvc3QYgICAgIDCrAoM"><i class="fa fa-heart"></i></a>
-					</p>
-					<ul>
-												<li>Recorded some data to improve my habit calendar.</li>
-												<li>Spent from 8 am to 9 pm trying out and cataloging different software.  Not as fun as it usually is.</li>
-												<li>Ate supper for dad's birthday.</li>
-											</ul>
-				</div>
-            </div>
-            <div class="col-md-4">
-				<div class="post-item">
-					<p>
-						<span id="udm1">Aug 16</span> | 
-						<a href="/u/orionmelt">orionmelt</a> posted 13 minutes ago 
-						<a href="http://www.reddit.com/r/mydaily3_sandbox/comments/2dok2h/mydaily3_saturday_august_16_2014/cjs2wla" title="view on reddit"><i class="fa fa-comment"></i></a>
-						<a class="fav " href="/favorite/ag9kZXZ-ZGFpbHkzZmxhc2tyEQsSBFBvc3QYgICAgIDCrAoM"><i class="fa fa-heart"></i></a>
-					</p>
-					<ul>
-												<li>Volunteered at the freshman move in for 2 hours.</li>
-												<li>Went to my friends 60's party.</li>
-												<li>Began organizing my friend funeral.</li>
-											</ul>
-				</div>
-            </div>
-            <div class="col-md-4">
-				<div class="post-item">
-					<p>
-						<span id="udm1">Aug 16</span> | 
-						<a href="/u/orionmelt">orionmelt</a> posted 13 minutes ago 
-						<a href="http://www.reddit.com/r/mydaily3_sandbox/comments/2dok2h/mydaily3_saturday_august_16_2014/cjs2wla" title="view on reddit"><i class="fa fa-comment"></i></a>
-						<a class="fav " href="/favorite/ag9kZXZ-ZGFpbHkzZmxhc2tyEQsSBFBvc3QYgICAgIDCrAoM"><i class="fa fa-heart"></i></a>
-					</p>
-					<ul>
-						<li>Failed miserably at talking to Sky customer service</li>
-						<li>Worked up the courage to watch a playthrough of PT</li>
-						<li>Had home-made pulled pork burgers</li>
-					</ul>
-				</div>
-            </div>
-            <div class="col-md-4">
-				<div class="post-item">
-					<p>
-						<span id="udm1">Aug 16</span> | 
-						<a href="/u/orionmelt">orionmelt</a> posted 13 minutes ago 
-						<a href="http://www.reddit.com/r/mydaily3_sandbox/comments/2dok2h/mydaily3_saturday_august_16_2014/cjs2wla" title="view on reddit"><i class="fa fa-comment"></i></a>
-						<a class="fav " href="/favorite/ag9kZXZ-ZGFpbHkzZmxhc2tyEQsSBFBvc3QYgICAgIDCrAoM"><i class="fa fa-heart"></i></a>
-					</p>
-					<ul>
-												<li>Finally got some money to spend since summer started.</li>
-												<li>Had a nice lunch date with Benjamin and bought Little Big Planet 2.</li>
-												<li>Had some froyo and late night Fuego tacos. Feels good to have cash again.</li>
-											</ul>
-				</div>
-            </div>
-            <div class="col-md-4">
-				<div class="post-item">
-					<p>
-						<span id="udm1">Aug 16</span> | 
-						<a href="/u/orionmelt">orionmelt</a> posted 13 minutes ago 
-						<a href="http://www.reddit.com/r/mydaily3_sandbox/comments/2dok2h/mydaily3_saturday_august_16_2014/cjs2wla" title="view on reddit"><i class="fa fa-comment"></i></a>
-						<a class="fav " href="/favorite/ag9kZXZ-ZGFpbHkzZmxhc2tyEQsSBFBvc3QYgICAgIDCrAoM"><i class="fa fa-heart"></i></a>
-					</p>
-					<ul>
-												<li>Woke up late and started doing my online CA guard card classes.</li>
-												<li>Got my first real haircut in four years. My hair's still too short to do much of anything besides a fade/combover though.</li>
-												<li>The front derailleur on my bike stopped working. I really hope it's an easy and cheap fix since I need my bike to be usable for work.</li>
-											</ul>
-					
-				</div>
-            </div>
-            <div class="col-md-4">
-				<div class="post-item">
-					<p>
-						<span id="udm1">Aug 16</span> | 
-						<a href="/u/orionmelt">orionmelt</a> posted 13 minutes ago 
-						<a href="http://www.reddit.com/r/mydaily3_sandbox/comments/2dok2h/mydaily3_saturday_august_16_2014/cjs2wla" title="view on reddit"><i class="fa fa-comment"></i></a>
-						<a class="fav " href="/favorite/ag9kZXZ-ZGFpbHkzZmxhc2tyEQsSBFBvc3QYgICAgIDCrAoM"><i class="fa fa-heart"></i></a>
-					</p>
-					<ul>
-												<li>Recorded some data to improve my habit calendar.</li>
-												<li>Spent from 8 am to 9 pm trying out and cataloging different software.  Not as fun as it usually is.</li>
-												<li>Ate supper for dad's birthday.</li>
-											</ul>
-				</div>
-            </div>
-            <div class="col-md-4">
-				<div class="post-item">
-					<p>
-						<span id="udm1">Aug 16</span> | 
-						<a href="/u/orionmelt">orionmelt</a> posted 13 minutes ago 
-						<a href="http://www.reddit.com/r/mydaily3_sandbox/comments/2dok2h/mydaily3_saturday_august_16_2014/cjs2wla" title="view on reddit"><i class="fa fa-comment"></i></a>
-						<a class="fav " href="/favorite/ag9kZXZ-ZGFpbHkzZmxhc2tyEQsSBFBvc3QYgICAgIDCrAoM"><i class="fa fa-heart"></i></a>
-					</p>
-					<ul>
-												<li>Volunteered at the freshman move in for 2 hours.</li>
-												<li>Went to my friends 60's party.</li>
-												<li>Began organizing my friend funeral.</li>
-											</ul>
-				</div>
-            </div>
+            {% if loop.index is divisibleby 3 %}
+        </div>
+        <div class="row">
+        	{% endif %}
+            {% endfor %}
         </div>
         <!-- /.row -->
 
         <hr>
 		
 		<script>
-		$( document ).ready(function() {
-			$( "#posts_row" ).masonry({
-				transitionDuration: 0,
-				layoutPriorities: {
-					shelfOrder: 1000
-				}
-			});
-			
+		$( document ).ready(function() {			
 			$( ".fav_link" ).click(function(e) {
 				e.preventDefault();
 				$(this).toggleClass("faved");
@@ -315,33 +191,6 @@
 		  Daily3 was born from <a href="http://reddit.com/2chg5w">this post</a> on <a href="http://reddit.com/r/LifeProTips">r/LifeProTips</a>.
       </div>
     </div>
-
-    <!-- jQuery Version 1.11.1 -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-	
-	<script src="/static/js/masonry.pkgd.min.js"></script>
-	<script src="/static/js/jquery.masonry.ordered.js"></script>
-	<script>
-	$( document ).ready(function() {
-		
-		$( "#posts_row" ).masonry({
-			transitionDuration: 0,
-			layoutPriorities: {
-				shelfOrder: 1000
-			}
-		});
-		
-		$( ".fav_link" ).click(function(e) {
-			e.preventDefault();
-			$(this).toggleClass("faved");
-			$.get(this.href);
-		});
-		
-	});
-	</script>
 
 </body>
 

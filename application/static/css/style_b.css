@@ -1,9 +1,11 @@
+/* Bootstrap */
+
 body
 {
 	background: #eee;
 	color:#333;
 	font-family: 'Oxygen', sans-serif;
-	font-size:12px;
+	font-size:13px;
 }
 
 .navbar-inverse 
@@ -14,8 +16,8 @@ body
 
 .navbar-brand 
 {
-	font-size:20px;
-	line-height:22px;
+	font-size:22px;	
+	font-weight: bold;
 }
 
 .navbar-inverse .navbar-brand
@@ -23,12 +25,75 @@ body
 	color:#eee;
 }
 
+.navbar-brand,
+.navbar-nav li a {
+    line-height: 60px;
+    height: 60px;
+    padding-top: 0;
+}
+
+.footer
+{
+	background:#ddd;
+	color:#999;
+	font-weight:bold;
+	padding:10px 0;
+}
+
+a
+{
+	color:#333;
+}
+
+a:hover, a:focus
+{
+	color:#000;
+	text-decoration:none;
+}
+
+.btn-custom {
+  background-color: #333333;
+  border-color: #333333;
+}
+
+.btn-custom:hover,
+.btn-custom:focus,
+.btn-custom:active,
+.btn-custom.active {
+  background-color: #262626;
+  border-color: #1a1a1a;
+}
+
+.btn-custom.disabled:hover,
+.btn-custom.disabled:focus,
+.btn-custom.disabled:active,
+.btn-custom.disabled.active,
+.btn-custom[disabled]:hover,
+.btn-custom[disabled]:focus,
+.btn-custom[disabled]:active,
+.btn-custom[disabled].active,
+fieldset[disabled] .btn-custom:hover,
+fieldset[disabled] .btn-custom:focus,
+fieldset[disabled] .btn-custom:active,
+fieldset[disabled] .btn-custom.active {
+  background-color: #333333;
+  border-color: #333333;
+}
+
+.glyphicon
+{
+	font-size: 120%;
+}
+
+/* Custom */
+
 .post-item
 {
 	width:100%;
-	margin:15px 0px;
+	margin-bottom:30px;
 	padding:10px;
 	background:#d9cecb;
+	min-height: 210px;
 }
 
 .post-item ul 
@@ -50,13 +115,59 @@ body
 
 .post-item p a
 {
-	font-size:130%;
+	font-size:110%;
 	font-weight:bold;
 }
 
-.post-item p a i
+.post-item p a span
 {
-	margin-left:10px;
+	margin-left:5px;
+}
+
+
+.user-post-item
+{
+	background:#9b3;
+	border-bottom:2px solid #6d8624;
+	padding:20px;
+	min-height: 0;
+}
+
+.user-post-item h3
+{
+	margin-top: 10px;
+}
+
+.user-post-item h4
+{
+	float:left;
+	width:50%;
+}
+
+.user-post-item .cc
+{
+	float:right;
+	margin-top: 10px;
+	vertical-align: baseline;
+}
+
+.user-post-item .btn 
+{
+	float:left;
+}
+
+
+#post_daily3 textarea
+{	
+	width:100%;
+	margin-bottom:10px;
+	padding:5px;
+}
+
+#post_daily3 .button
+{
+	margin-left:0;
+	
 }
 
 a.fav :hover
@@ -64,22 +175,32 @@ a.fav :hover
 	color:#C4192D;
 }
 
-
-.footer
+.c1 /* Weathered or not - custom */
 {
-	background:#ddd;
-	color:#999;
-	font-weight:bold;
-	padding:10px 0;
+	background:#d9cecb;
+	border-bottom:2px solid #bca9a4;
 }
 
-a
+.c2 /* Paper Fawn */
 {
-	color:#333;
+	background:#FFCBA6;
+	border-bottom:2px solid #ffa362;
 }
 
-a:hover, a:focus
+.c3 /* La-La-Lavender */
 {
-	color:#000;
-	text-decoration:none;
+	background:#EABBF7; 
+	border-bottom:2px solid #d77ef0;
+}
+
+.c4 /* Baby Duc */
+{
+	background:#FFF982;
+	border-bottom:2px solid #fff63e;
+}
+
+.c5 /* Minty Aqua */
+{
+	background:#A0F1C7;
+	border-bottom:2px solid #65e8a4;
 }

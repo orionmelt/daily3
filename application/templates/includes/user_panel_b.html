@@ -1,0 +1,79 @@
+					<div id="user_panel" class="col-md-4">
+						{% if g.user %}
+						<div id="user_post_b" class="post-item user-post-item">
+							{% if g.user_post %}
+							{% set post = g.user_post %}
+							<h4>My Daily3</h4>
+							<span class="cc">
+								<span class="month" id="udmu">
+									<script>$("#udmu").text(moment(moment.utc('{{ post.posted }}').toDate()).format("MMM"));</script>
+								</span>
+								<span class="day" id="uddu"><script>$("#uddu").text(moment(moment.utc('{{ post.posted }}').toDate()).format("D"));</script></span>
+								<span class="source_link">
+									{% if post.source_link %}<a href="{{ post.source_link }}" title="view on reddit"><i class="fa fa-comment"></i></a>{% endif %} 
+								</span>
+								<noscript><span class="month">{{ post.posted|format_month }}</span><span class="day">{{ post.posted|format_day }}</span></noscript>
+							</span>
+							{% include 'includes/post_panel_b.html' %}
+							{% else %}
+							<h4>My Daily3</h4>
+							<span class="cc"><span id="ccx">0</span> / 140</span>
+							<div id="post_daily3">
+								<form id="post_form" method="post" action="{{ url_for('post_daily3') }}">
+									<textarea id="item1" name="item1" maxlength="140"></textarea>
+									<textarea id="item2" name="item2" maxlength="140"></textarea>
+									<textarea id="item3" name="item3" maxlength="140"></textarea>
+									<button id="post_button" class="btn btn-primary btn-custom"><span class="glyphicon glyphicon-th-list"></span> Post</button>
+									<p id="loading"></p>
+									<p>Also posts to /r/MyDaily3</p>
+								</form>
+								<script>
+								$('textarea').bind('keyup keydown', function() {
+								    var count = $('#ccx');
+								    var characters = $(this).val().length;    
+								    count.text(characters);
+								});
+								</script>
+							</div>
+							<script>
+							$( "#post_form" ).submit(function( event ) {
+ 							  event.preventDefault();
+ 							  var $form = $( this ),
+							    item1 = $form.find( "textarea[name='item1']" ).val(),
+								item2 = $form.find( "textarea[name='item2']" ).val(),
+								item3 = $form.find( "textarea[name='item3']" ).val(),
+							    url = $form.attr( "action" );
+ 							  var posting = $.post( url, { item1: item1, item2:item2, item3:item3 } );
+							  $( "#loading" ).html('<i class="fa fa-spinner fa-lg fa-spin"></i>'); 
+							  $( "#post_button" ).prop("disabled",true);
+							  posting.done(function( data ) { 
+							    $( "#user_panel" ).replaceWith( data );
+								$('#main_row').masonry({
+									transitionDuration: 0,
+									layoutPriorities: {
+										shelfOrder: 1000
+									}
+								});
+							  });
+							});
+							</script>
+							{% endif %}
+						</div>
+						{% else %}
+						<div id="user_post_b" class="post-item user-post-item">
+							{% if not g.user %}
+							<h3><a href="{{ g.login_url }}"><i class="fa fa-reddit fa-lg"></i> Login with reddit</a></h3>
+							{% else %}
+							<h3>Login temporarily disabled</h3>
+							{% endif %}
+						</div>
+						{% endif %}
+						
+						{% with messages = get_flashed_messages(with_categories=true) %}
+							{% if messages %}
+							{% for category, message in messages %}
+							<p class="error">Error: {{ message }}</p>
+						    {% endfor %}
+							{% endif %}
+						{% endwith %}
+					</div>
