@@ -76,7 +76,7 @@ def post_to_sub(post):
 
 def post_to_thread(post):
     reddit = get_reddit()
-    logging.debug("@post_to_thread: session['user']=%s" % session['user'])
+    logging.debug("@post_to_thread: user=%s" % g.u)
     try:
         reddit.set_access_credentials({'identity','submit'}, g.user.access_token, g.user.refresh_token)
     except praw.errors.OAuthInvalidToken:
@@ -126,6 +126,11 @@ def load_user():
     
     u = session_u or cookie_u
     b = session.get('beta',False) or request.cookies.get('b',False)
+    
+    session['user'] = u
+    session['beta'] = b
+    
+    logging.debug("@before_request: user=%s" % u)
     
     if session.get('logout',None):
         session['user'] = None
@@ -221,7 +226,7 @@ def authorize():
             user.refresh_token = access_info['refresh_token']
             user.put()
             session['user'] = user.username
-            logging.debug("@authorize: session['user']=%s" % session['user'])
+            logging.debug("@authorize: user=%s" % g.u)
         except:
             logging.error("E201: Unknown exception while authenticating")
             logging.error(sys.exc_info())
