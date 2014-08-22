@@ -8,10 +8,22 @@ body
 	font-size:13px;
 }
 
+.dropdown-menu
+{
+	font-size:13px;
+}
+
+.dropdown-menu>li>a>i
+{
+	margin-right: 5px;
+}
+
+/*
 .navbar-inverse 
 {
 	background:#333;
 	border-color:#999;
+	margin-bottom: 30px;
 }
 
 .navbar-brand 
@@ -23,14 +35,14 @@ body
 .navbar-inverse .navbar-brand
 {
 	color:#eee;
-}
+}*/
 
-.navbar-brand,
+/*.navbar-brand,
 .navbar-nav li a {
     line-height: 60px;
     height: 60px;
     padding-top: 0;
-}
+}*/
 
 .footer
 {
@@ -54,6 +66,7 @@ a:hover, a:focus
 .btn-custom {
   background-color: #333333;
   border-color: #333333;
+  color:#FFF;
 }
 
 .btn-custom:hover,
@@ -62,6 +75,7 @@ a:hover, a:focus
 .btn-custom.active {
   background-color: #262626;
   border-color: #1a1a1a;
+  color:#FFF;
 }
 
 .btn-custom.disabled:hover,
@@ -76,13 +90,15 @@ fieldset[disabled] .btn-custom:hover,
 fieldset[disabled] .btn-custom:focus,
 fieldset[disabled] .btn-custom:active,
 fieldset[disabled] .btn-custom.active {
-  background-color: #333333;
-  border-color: #333333;
+  background-color: #262626;
+  border-color: #1a1a1a;
 }
 
-.glyphicon
+.form-control
 {
-	font-size: 120%;
+	font-size: 90%;
+	padding: 5px;
+	margin:15px 0;
 }
 
 /* Custom */
@@ -119,7 +135,7 @@ fieldset[disabled] .btn-custom.active {
 	font-weight:bold;
 }
 
-.post-item p a span
+.post-item p a i, h5 a i
 {
 	margin-left:5px;
 }
@@ -128,46 +144,27 @@ fieldset[disabled] .btn-custom.active {
 .user-post-item
 {
 	background:#9b3;
+	border: 1px solid #6d8624;
 	border-bottom:2px solid #6d8624;
-	padding:20px;
-	min-height: 0;
+	padding: 20px;
+}
+
+.user-post-item>h3
+{
+	margin-top: 10px;
+}
+
+
+.user-post-item h3, h4, h5
+{
+	margin: 0;
+	font-weight:bold;
 }
 
 .user-post-item h3
 {
-	margin-top: 10px;
-}
-
-.user-post-item h4
-{
-	float:left;
-	width:50%;
-}
-
-.user-post-item .cc
-{
-	float:right;
-	margin-top: 10px;
-	vertical-align: baseline;
-}
-
-.user-post-item .btn 
-{
-	float:left;
-}
-
-
-#post_daily3 textarea
-{	
-	width:100%;
-	margin-bottom:10px;
-	padding:5px;
-}
-
-#post_daily3 .button
-{
-	margin-left:0;
-	
+	text-align: center;
+	line-height: 160px;
 }
 
 a.fav :hover
@@ -203,4 +200,17 @@ a.fav :hover
 {
 	background:#A0F1C7;
 	border-bottom:2px solid #65e8a4;
+}
+
+.faved
+{
+	color:#C4192D;
+}
+
+#user_head_b
+{
+	background:#4cc;
+	padding:10px;
+	border-bottom:2px solid #2ca0a0;
+	margin-bottom: 20px;
 }

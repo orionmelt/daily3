@@ -1,0 +1,67 @@
+{% extends "base_b.html" %}
+{% block title %} - My favorites{% endblock %}
+
+{% block nav_fav %}
+active
+{% endblock %}
+
+{% set start = 0 %}
+{% block content %}
+	<!-- Page Content -->
+    <div class="container">
+
+        <!-- Posts Row -->
+
+        <div class="row">
+        	<div class="col-md-4">
+        		{% include 'includes/user_panel_b.html' %}
+        	</div>
+        	<div class="col-md-8">
+        		<div class="row">
+        			<div class="col-md-12">
+        				<div id="user_head_b">							
+							<h4>{{ g.user.username }} / favorites</h4>
+						</div>
+        			</div>
+        		</div>
+        		{% if posts %}
+					<div class="row">
+						{% for post in posts %}
+						{% set loop_index = loop.index %}
+						<div class="col-md-6">
+							<div class="post-item {{ loop.cycle('c1','c2', 'c3', 'c4', 'c5') }}">
+								{% include 'includes/post_panel_b.html' %}
+							</div>
+						</div>
+						{% if loop.index is divisibleby 2 %}
+			        </div>
+			        <div class="row">
+			        	{% endif %}
+						{% endfor %}
+					</div>
+				{% else %}
+					<div  id="main_row" class="row">
+						<h4>No favorites yet.</h4>
+					</div>
+				{% endif %}
+
+        	</div>
+        </div>
+        <!-- /.row -->
+
+        <hr>
+		
+		<script>
+		$( document ).ready(function() {			
+			$( ".fav" ).click(function(e) {
+				e.preventDefault();
+				$(this).toggleClass("faved");
+				$.get(this.href);
+			});
+		});
+		</script>
+
+    </div>
+    <!-- /.container -->
+
+{% endblock %}

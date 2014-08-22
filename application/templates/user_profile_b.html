@@ -1,0 +1,74 @@
+{% extends "base_b.html" %}
+
+{% block title %}
+{% if g.user.username == profile.username %}
+ - Me
+{% else %}
+ - Overview for {{ profile.username }}
+{% endif %}
+{% endblock %}
+
+{% block nav_me %}
+{% if g.user.username == profile.username %}active{% endif %}
+{% endblock %}
+
+{% set start = 0 %}
+{% block content %}
+	<!-- Page Content -->
+    <div class="container">
+
+        <!-- Posts Row -->
+
+        <div class="row">
+        	<div class="col-md-4">
+        		{% include 'includes/user_panel_b.html' %}
+        	</div>
+        	<div class="col-md-8">
+        		<div class="row">
+        			<div class="col-md-12">
+        				<div id="user_head_b">							
+							<h4><a href="{{ url_for('user_profile', username=profile.username) }}">{{ profile.username }}</a></h4>
+							<h6><a href="http://www.reddit.com/user/{{ profile.username }}">redditor for {{ profile.created_reddit|time_since }}</a></h6>
+						</div>
+        			</div>
+        		</div>
+        		{% if posts %}
+					<div class="row">
+						{% for post in posts %}
+						{% set loop_index = loop.index %}
+						<div class="col-md-6">
+							<div class="post-item {{ loop.cycle('c1','c2', 'c3', 'c4', 'c5') }}">
+								{% include 'includes/min_post_panel_b.html' %}
+							</div>
+						</div>
+						{% if loop.index is divisibleby 2 %}
+			        </div>
+			        <div class="row">
+			        	{% endif %}
+						{% endfor %}
+					</div>
+				{% else %}
+					<div class="row">
+						<h4>No posts yet.</h4>
+					</div>
+				{% endif %}
+
+        	</div>
+        </div>
+        <!-- /.row -->
+
+        <hr>
+		
+		<script>
+		$( document ).ready(function() {			
+			$( ".fav" ).click(function(e) {
+				e.preventDefault();
+				$(this).toggleClass("faved");
+				$.get(this.href);
+			});
+		});
+		</script>
+
+    </div>
+    <!-- /.container -->
+{% endblock %}

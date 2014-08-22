@@ -1,17 +1,14 @@
-					<p>
+					<h5 class="text-right">
 						<span id="{{ post_row }}_post_date_{{ loop_index }}">
 							<script>$("#{{ post_row }}_post_date_{{ loop_index }}").text(moment(moment.utc('{{ post.posted }}').toDate()).format("MMM D"));</script>
-						</span> | 
-						<a href="{{ url_for('user_profile', username=post.user.get().username) }}">{{ post.user.get().username }}</a> 
-						posted {{ post.posted|time_since }} ago 
+						</span> 
 						{% if post.source_link %}
 						<a href="{{ post.source_link }}" title="view on reddit"><i class="fa fa-comment"></i></a>
 						{% endif %}
 						{% if g.user %}
-						<a class="fav {% if post.faved %}faved{% endif %}" href="{{ url_for('favorite', post_id=post.key.urlsafe()) }}">
-						<i class="fa fa-heart"></i></a>
+						<a class="fav {% if post.faved %}faved{% endif %}" href="{{ url_for('favorite', post_id=post.key.urlsafe()) }}"><i class="fa fa-heart"></i></a>
 						{% endif %}
-					</p>
+					</h5>
 					<ul>
 						{% if post.item1 %}<li>{{ post.item1 }}</li>{% endif %}
 						{% if post.item2 %}<li>{{ post.item2 }}</li>{% endif %}

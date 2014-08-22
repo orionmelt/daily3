@@ -1,40 +1,63 @@
-					<div id="user_panel" class="col-md-4">
+					<div id="user_panel">
 						{% if g.user %}
 						<div id="user_post_b" class="post-item user-post-item">
 							{% if g.user_post %}
 							{% set post = g.user_post %}
-							<h4>My Daily3</h4>
-							<span class="cc">
-								<span class="month" id="udmu">
-									<script>$("#udmu").text(moment(moment.utc('{{ post.posted }}').toDate()).format("MMM"));</script>
-								</span>
-								<span class="day" id="uddu"><script>$("#uddu").text(moment(moment.utc('{{ post.posted }}').toDate()).format("D"));</script></span>
-								<span class="source_link">
-									{% if post.source_link %}<a href="{{ post.source_link }}" title="view on reddit"><i class="fa fa-comment"></i></a>{% endif %} 
-								</span>
-								<noscript><span class="month">{{ post.posted|format_month }}</span><span class="day">{{ post.posted|format_day }}</span></noscript>
-							</span>
-							{% include 'includes/post_panel_b.html' %}
+							<div class="row">
+								<div class="col-md-6">
+									<h4>My Daily3</h4>
+								</div>
+								<div class="col-md-6 text-right">
+									<h5 class="text-right">
+										<span id="uppd">
+											<script>$("#uppd").text(moment(moment.utc('{{ post.posted }}').toDate()).format("MMM D"));</script>
+										</span> 
+										{% if post.source_link %}
+											<a href="{{ post.source_link }}" title="view on reddit"><i class="fa fa-comment"></i></a>
+										{% endif %}
+										{% if g.user %}
+											<a class="fav {% if post.faved %}faved{% endif %}" href="{{ url_for('favorite', post_id=post.key.urlsafe()) }}"><i class="fa fa-heart"></i></a>
+										{% endif %}
+									</h5>
+								</div>
+							</div>
+							<ul>
+								{% if post.item1 %}<li>{{ post.item1 }}</li>{% endif %}
+								{% if post.item2 %}<li>{{ post.item2 }}</li>{% endif %}
+								{% if post.item3 %}<li>{{ post.item3 }}</li>{% endif %}
+							</ul>
 							{% else %}
-							<h4>My Daily3</h4>
-							<span class="cc"><span id="ccx">0</span> / 140</span>
-							<div id="post_daily3">
-								<form id="post_form" method="post" action="{{ url_for('post_daily3') }}">
-									<textarea id="item1" name="item1" maxlength="140"></textarea>
-									<textarea id="item2" name="item2" maxlength="140"></textarea>
-									<textarea id="item3" name="item3" maxlength="140"></textarea>
-									<button id="post_button" class="btn btn-primary btn-custom"><span class="glyphicon glyphicon-th-list"></span> Post</button>
-									<p id="loading"></p>
-									<p>Also posts to /r/MyDaily3</p>
-								</form>
-								<script>
+							<div class="row">
+								<div class="col-md-6">
+									<h4>My Daily3</h4>
+								</div>
+								<div class="col-md-6 text-right">
+									<p><span id="ccx">0</span> / 140</p>
+								</div>
+							</div>
+							<form id="post_form" method="post" action="{{ url_for('post_daily3') }}">
+								<textarea class="form-control" id="item1" name="item1" maxlength="140"></textarea>
+								<textarea class="form-control" id="item2" name="item2" maxlength="140"></textarea>
+								<textarea class="form-control" id="item3" name="item3" maxlength="140"></textarea>
+								<div class="row">
+									<div class="col-md-3">
+										<button id="post_button" class="btn btn-custom">Post</button>
+									</div>
+									<div class="col-md-3">
+										<p id="loading"></p>
+									</div>
+									<div class="col-md-6 text-right">
+										<p>Also posts to /r/MyDaily3</p>
+									</div>
+								</div>
+							</form>
+							<script>
 								$('textarea').bind('keyup keydown', function() {
 								    var count = $('#ccx');
 								    var characters = $(this).val().length;    
 								    count.text(characters);
 								});
-								</script>
-							</div>
+							</script>
 							<script>
 							$( "#post_form" ).submit(function( event ) {
  							  event.preventDefault();

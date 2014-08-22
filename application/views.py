@@ -23,7 +23,7 @@ UNKNOWN_POST_ERROR_TEXT = "Unknown error posting to reddit. Your post was *not* 
 CAPTCHA_ERROR_TEXT = "Reddit requires a captcha challenge before you can post because you have low karma. \
                       We can't handle captcha now. Your post was *not* posted on /r/MyDaily3."
 
-BETA_SUFFIX = '_a'
+BETA_SUFFIX = '_b'
 
 def get_reddit():
     reddit = memcache.get('reddit')
@@ -161,7 +161,7 @@ def bootstrap():
         favorites = Favorite.query(Favorite.user==g.user.key).map(lambda f: f.post)
         for post in posts:
             post.faved = post.key in favorites
-    return render_template('base_b.html', posts=posts)
+    return render_template('index_b.html', posts=posts)
 
 
 def authorize():
