@@ -187,7 +187,7 @@ def home():
     template = 'index'
     posts = memcache.get('posts')
     if not posts:
-        posts = Post.query().order(-Post.posted).fetch()
+        posts = Post.query().order(-Post.posted).fetch(50)
         memcache.add('posts', posts)
     if g.user:
         favorites = Favorite.query(Favorite.user==g.user.key).map(lambda f: f.post)
